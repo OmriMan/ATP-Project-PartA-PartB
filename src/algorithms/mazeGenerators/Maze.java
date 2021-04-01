@@ -34,6 +34,14 @@ public class Maze {
         return maze_matrix;
     }
 
+    public void setMaze_matrix_by_index(int row,int col,int val) {
+        this.maze_matrix[row][col] = val;
+    }
+
+    public void setMaze_matrix_by_Position(Position p,int val){
+        this.maze_matrix[p.getRowIndex()][p.getColumnIndex()] = val;
+    }
+
     /**
      * print the maze by order - maybe better implement tostring() and just call it from here ?
      */
@@ -53,14 +61,15 @@ public class Maze {
                 else
                     System.out.print(this.getMaze_matrix()[i][j] +" ,");
             }
-            if (this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] ==0) {
-                System.out.println(this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] + "}");
+            if (Is_Goal(i,this.getMaze_matrix()[0].length -1)) {
+                System.out.println("E}");
             }
             else if (Is_Start(i,this.getMaze_matrix()[0].length -1)) {
-                System.out.println(" S}");
+                System.out.println("S}");
             }
-            else
-                System.out.println(" E}");
+            else {
+                System.out.println(this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] + "}");
+            }
 
         }
     }

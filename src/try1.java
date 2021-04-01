@@ -1,24 +1,18 @@
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.Position;
-import algorithms.mazeGenerators.AMazeGenerator;
-import algorithms.mazeGenerators.EmptyMazeGenerator;
+import algorithms.mazeGenerators.*;
+
 public class try1 {
     public static void main(String[] args) {
-        System.out.println("commit number 3");
-        Position x = new Position(2,4);
-        Position y = new Position(3,4);
-        System.out.println(x.is_neighbor(y));
-        EmptyMazeGenerator empty = new EmptyMazeGenerator();
+        SimpleMazeGenerator empty = new SimpleMazeGenerator();
         long start_time = System.currentTimeMillis();
-        Maze empty_maze = empty.generate(1000,1000);
+        Maze empty_maze = empty.generate(100,100);
         empty_maze.print();
         long end_time = System.currentTimeMillis();
-        System.out.println("time to build and print 1000X1000 = " + (end_time - start_time)/1000 + " seconds");
+        System.out.println("time to build and print Simple Maze 100X100 = " + (end_time - start_time)/1000 + " seconds");
         if (empty_maze.getStartPosition().equals(empty_maze.getGoalPosition())){
             System.out.println("Error at RNB's functions");
         }
         long check_time = empty.measureAlgorithmTimeMillis(1000,1000);
-        System.out.println("Time to generate Empty Maze is " + check_time/1000 + " seconds");
+        System.out.println("Time to generate Simple Maze is " + check_time/1000 + " seconds");
 
 
 

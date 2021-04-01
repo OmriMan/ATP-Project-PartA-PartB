@@ -18,6 +18,17 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         return end_time - start_time;
     }
 
+    /**
+     * Create empty table (full of zero's) size rowXcol
+     * @param row
+     * @param col
+     * @return 2D array of int
+     */
+    public int[][] Create_2D_matrix(int row,int col)
+    {
+        int[][] matrix = new int[row][col];
+        return matrix;
+    }
 
     /**
      * Generates a random Position on the frame of the Maze.
@@ -28,18 +39,18 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      */
     public Position RND_Position(int row, int col) {
         Random rand = new Random();
-        int x = rand.nextInt(row-1);
+        int x = rand.nextInt(row);
 
         //Generates a random Position on the sides of the maze
-        if (x == 0 || x == row - 1) {
-            int y = rand.nextInt(col - 1);
+        if (x == 0 || x == row -1) {
+            int y = rand.nextInt(col);
             Position new_RND_Pos = new Position(x,y);
             return new_RND_Pos;
         }
 
         //Generates a random Position on the top or the bottom of the maze
         else{
-            int y = rand.nextInt(1);
+            int y = rand.nextInt(2);
             if (y == 0)//Top of maze
             {
                 Position new_RND_Pos = new Position(x,0);
@@ -47,7 +58,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
             }
 
             //Bottom of maze
-            Position new_RND_Pos = new Position(x,col - 1);
+            Position new_RND_Pos = new Position(x,col-1);
             return new_RND_Pos;
         }
     }

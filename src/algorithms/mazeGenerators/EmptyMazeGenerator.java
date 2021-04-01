@@ -9,10 +9,9 @@ public class EmptyMazeGenerator extends AMazeGenerator {
      */
     @Override
     public Maze generate(int row, int col) {
-        int[][] matrix = new int[row][col];
         Position start = this.RND_Start_Position(row,col);
         Position goal = this.RND_Goal_Position(row,col,start);
-        Maze maze = new Maze(matrix,start,goal);
+        Maze maze = new Maze(this.Create_2D_matrix(row,col),start,goal);
         return maze;
     }
 }
