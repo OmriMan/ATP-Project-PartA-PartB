@@ -39,15 +39,15 @@ public class Maze {
      */
     public void print(){
         //mark start and goal points with 'S'(89) and 'E'(63) - not effective but make it readable
-        this.getMaze_matrix()[this.getStartPosition().getRowIndex()][this.getStartPosition().getColumnIndex()] = 'S';
-        this.getMaze_matrix()[this.getGoalPosition().getRowIndex()][this.getGoalPosition().getColumnIndex()] = 'E';
+//        this.getMaze_matrix()[this.getStartPosition().getRowIndex()][this.getStartPosition().getColumnIndex()] = 'S';
+//        this.getMaze_matrix()[this.getGoalPosition().getRowIndex()][this.getGoalPosition().getColumnIndex()] = 'E';
         for(int i=0;i<this.getMaze_matrix().length;i++){
             System.out.print("{");
             for(int j=0;j<this.getMaze_matrix()[0].length -1 ;j++){
-                if (this.getMaze_matrix()[i][j] =='S'){
+                if (Is_Start(i,j)){
                     System.out.print("S ,");
                 }
-                else if (this.getMaze_matrix()[i][j] =='E'){
+                else if (Is_Goal(i,j)){
                     System.out.print("E ,");
                 }
                 else
@@ -56,7 +56,7 @@ public class Maze {
             if (this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] ==0) {
                 System.out.println(this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] + "}");
             }
-            else if (this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] =='S') {
+            else if (Is_Start(i,this.getMaze_matrix()[0].length -1)) {
                 System.out.println(" S}");
             }
             else
@@ -64,5 +64,43 @@ public class Maze {
 
         }
     }
+
+    /**
+     * check if its start or goal position
+     * @param row
+     * @param col
+     * @return true or false
+     */
+    public boolean Is_Start(int row,int col)
+    {
+        if (row==this.getStartPosition().getRowIndex() && col== this.getStartPosition().getColumnIndex()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean Is_Goal(int row,int col)
+    {
+        if (row==this.getGoalPosition().getRowIndex() && col== this.getGoalPosition().getColumnIndex()){
+            return true;
+        }
+        return false;
+    }
+// argument here its position
+//    public boolean Is_Start(Position p)
+//    {
+//        if (p.getRowIndex()==this.getStartPosition().getRowIndex() && p.getColumnIndex()== this.getStartPosition().getColumnIndex()){
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public boolean Is_Goal(Position p)
+//    {
+//        if (p.getRowIndex()==this.getGoalPosition().getRowIndex() && p.getColumnIndex()== this.getGoalPosition().getColumnIndex()){
+//            return true;
+//        }
+//        return false;
+//    }
 }
 
