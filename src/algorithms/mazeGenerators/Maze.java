@@ -53,13 +53,13 @@ public class Maze {
             System.out.print("{");
             for(int j=0;j<this.getMaze_matrix()[0].length -1 ;j++){
                 if (Is_Start(i,j)){
-                    System.out.print("S ,");
+                    System.out.print("S ");
                 }
                 else if (Is_Goal(i,j)){
-                    System.out.print("E ,");
+                    System.out.print("E ");
                 }
                 else
-                    System.out.print(this.getMaze_matrix()[i][j] +" ,");
+                    System.out.print(this.getMaze_matrix()[i][j] +" ");
             }
             if (Is_Goal(i,this.getMaze_matrix()[0].length -1)) {
                 System.out.println("E}");
@@ -76,9 +76,9 @@ public class Maze {
 
     /**
      * check if its start or goal position
-     * @param row
-     * @param col
-     * @return true or false
+     * @param row - number of rows
+     * @param col - number of columns
+     * @return Boolean value
      */
     public boolean Is_Start(int row,int col)
     {
