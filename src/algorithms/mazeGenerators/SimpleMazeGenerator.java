@@ -4,10 +4,11 @@ import java.util.Random;
 
 public class SimpleMazeGenerator extends AMazeGenerator{
     /**
-     *  create Simple maze - build "walls"(1) or 0 by random and make sure there is a path from start to goal
+     *  create Simple maze - build "walls"(1) or passage (0) by random probability (2/3 for walls)
+     *  and then creates at least 2 paths from Start to goal
      * @param row - number of rows in maze matrix
      * @param col - number of columns in maze matrix
-     * @return maze with at least one path from start position to goal position
+     * @return maze with at least two paths from start position to goal position
      */
     @Override
     public Maze generate(int row, int col) {
@@ -15,7 +16,17 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         Position goal = this.RND_Goal_Position(row,col,start);
         Maze maze = new Maze(this.Create_2D_matrix(row,col),start,goal);
         Build_RNB_Walls(row,col,maze);
-        Build_Simple_Path(start,goal,maze);
+
+        //Finds a random cell and connects start to goal via this random cell
+        Random rand = new Random();
+        Position random_p = new Position(rand.nextInt(row), rand.nextInt(col));
+        Build_Simple_Path(random_p,goal,maze);
+        Build_Simple_Path(start, random_p,maze);
+
+        //Second path
+        random_p = new Position(rand.nextInt(row), rand.nextInt(col));
+        Build_Simple_Path(random_p,goal,maze);
+        Build_Simple_Path(start, random_p,maze);
         return maze;
     }
 
@@ -33,7 +44,14 @@ public class SimpleMazeGenerator extends AMazeGenerator{
                 if (maze.Is_Start(i,j) || maze.Is_Goal(i,j)){
                     continue;
                 }
-                maze.setMaze_matrix_by_index(i,j,rand.nextInt(2));
+
+                //Creates a "wall" (1) with a probability of 2/3
+                if (rand.nextInt(3) % 2 == 0)
+                {
+                    maze.setMaze_matrix_by_index(i,j,1);
+                }
+
+
             }
         }
     }

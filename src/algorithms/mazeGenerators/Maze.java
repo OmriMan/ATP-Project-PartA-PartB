@@ -50,7 +50,7 @@ public class Maze {
 //        this.getMaze_matrix()[this.getStartPosition().getRowIndex()][this.getStartPosition().getColumnIndex()] = 'S';
 //        this.getMaze_matrix()[this.getGoalPosition().getRowIndex()][this.getGoalPosition().getColumnIndex()] = 'E';
         for(int i=0;i<this.getMaze_matrix().length;i++){
-            System.out.print("{");
+            System.out.print("{ ");
             for(int j=0;j<this.getMaze_matrix()[0].length -1 ;j++){
                 if (Is_Start(i,j)){
                     System.out.print("S ");
@@ -62,15 +62,14 @@ public class Maze {
                     System.out.print(this.getMaze_matrix()[i][j] +" ");
             }
             if (Is_Goal(i,this.getMaze_matrix()[0].length -1)) {
-                System.out.println("E}");
+                System.out.println("E }");
             }
             else if (Is_Start(i,this.getMaze_matrix()[0].length -1)) {
-                System.out.println("S}");
+                System.out.println("S }");
             }
             else {
-                System.out.println(this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] + "}");
+                System.out.println(this.getMaze_matrix()[i][this.getMaze_matrix()[0].length -1] + " }");
             }
-
         }
     }
 
