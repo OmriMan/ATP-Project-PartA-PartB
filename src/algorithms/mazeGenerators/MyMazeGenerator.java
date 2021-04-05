@@ -1,5 +1,6 @@
 package algorithms.mazeGenerators;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashSet;
 import java.util.Random;
 
 public class MyMazeGenerator extends AMazeGenerator {
@@ -24,24 +25,25 @@ public class MyMazeGenerator extends AMazeGenerator {
         matrix[x][y] = 0;
 
         //(4)Compute it's frontier cell and adds them to a List
-        ArrayList<Position> Frontier_list = new ArrayList<>();
-        Frontier_list.addAll(Find_frontier_cells(x,y, row, col,matrix));
+        HashSet<Position> Frontier_set = new HashSet<>();
+        Frontier_set.addAll(Find_frontier_cells(x,y, row, col,matrix));
 
         //(5) While the list of Frontier cells is not empty
-        while(!Frontier_list.isEmpty()){
+        while(!Frontier_set.isEmpty()){
 
             //(5.1) Pick a random frontier cell from the list and remove it
-            Position random_frontier_cell = Frontier_list.remove(rand.nextInt(Frontier_list.size()));
+            Position random_frontier_cell = Get_random_from_set(Frontier_set);
+            Frontier_set.remove(random_frontier_cell);
 
             //(5.2) Compute frontier cells of the random frontier cell from the list and adds them to list
-            Frontier_list.addAll(Find_frontier_cells(random_frontier_cell.getRowIndex(),random_frontier_cell.getColumnIndex(), row, col, matrix));
+            Frontier_set.addAll(Find_frontier_cells(random_frontier_cell.getRowIndex(),random_frontier_cell.getColumnIndex(), row, col, matrix));
 
             //(5.2) Compute all neighbors of random frontier cell
-            ArrayList<Position> Neighbor_list = new ArrayList<>();
-            Neighbor_list.addAll(Find_neighbor_cells(random_frontier_cell.getRowIndex(), random_frontier_cell.getColumnIndex(), row, col, matrix));
+            HashSet<Position> Neighbor_set = new HashSet<>();
+            Neighbor_set.addAll(Find_neighbor_cells(random_frontier_cell.getRowIndex(), random_frontier_cell.getColumnIndex(), row, col, matrix));
 
             //Pick a random Neighbor cell
-            Position random_neighbor_cell = Neighbor_list.get(rand.nextInt(Neighbor_list.size()));
+            Position random_neighbor_cell = Get_random_from_set(Neighbor_set);
 
             //(5.2) Connects the frontier cell to the neighbor by setting the cell in between and the frontier in "Passage" state
             matrix = Make_passage(random_neighbor_cell, random_frontier_cell, matrix);
@@ -59,18 +61,33 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
 
+    //Helper function that returns a random object from a given Set
+    private Position Get_random_from_set(HashSet<Position> Set){
+        Random rand = new Random();
+        int rand_int = rand.nextInt(Set.size());
+        int i = 0;
+        for (Position p : Set){
+            if (i == rand_int){
+                return p;
+            }
+            i++;
+        }
+        return null;
+    }
+
+
     //@@@@@@@@@@@@@@@A little code duplication - is there a better way??@@@@@@@@@@@@@2
 
     //Find all cells at distance 2 from (x,y) that are in "Blocked" state (1)
-    private ArrayList<Position> Find_frontier_cells(int x, int y, int row, int col, int[][] matrix){
-        ArrayList<Position> frontier_list = new ArrayList<>();
+    private HashSet<Position> Find_frontier_cells(int x, int y, int row, int col, int[][] matrix){
+        HashSet<Position> Frontier_set = new HashSet<>();
         Position P;
 
         //Checks (x-2, y)
         if (x-2 >= 0){
             if (matrix[x-2][y] == 1){
                 P = new Position(x-2, y);
-                frontier_list.add(P);
+                Frontier_set.add(P);
             }
         }
 
@@ -78,7 +95,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (x+2 <= row-1) {
             if (matrix[x + 2][y] == 1) {
                 P = new Position(x + 2, y);
-                frontier_list.add(P);
+                Frontier_set.add(P);
             }
         }
 
@@ -86,7 +103,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (y-2 >= 0){
             if (matrix[x][y-2] == 1){
                 P = new Position(x, y-2);
-                frontier_list.add(P);
+                Frontier_set.add(P);
             }
         }
 
@@ -94,25 +111,25 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (y+2 <= col-1){
             if (matrix[x][y+2] == 1){
                 P = new Position(x, y+2);
-                frontier_list.add(P);
+                Frontier_set.add(P);
             }
         }
 
-        return frontier_list;
+        return Frontier_set;
 
     }
 
 
     //Find all cells at distance 2 that are in "Passage" state (0)
-    private ArrayList<Position> Find_neighbor_cells(int x, int y, int row, int col, int[][] matrix){
-        ArrayList<Position> neighbor_list = new ArrayList<>();
+    private HashSet<Position> Find_neighbor_cells(int x, int y, int row, int col, int[][] matrix){
+        HashSet<Position> Neighbor_set = new HashSet<>();
         Position P;
 
         //Checks (x-2, y)
         if (x-2 >= 0){
             if (matrix[x-2][y] == 0){
                 P = new Position(x-2, y);
-                neighbor_list.add(P);
+                Neighbor_set.add(P);
             }
         }
 
@@ -121,7 +138,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (x+2 <= row-1){
             if (matrix[x+2][y] == 0){
                 P = new Position(x+2, y);
-                neighbor_list.add(P);
+                Neighbor_set.add(P);
             }
         }
 
@@ -129,7 +146,7 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (y-2 >= 0){
             if (matrix[x][y-2] == 0){
                 P = new Position(x, y-2);
-                neighbor_list.add(P);
+                Neighbor_set.add(P);
             }
         }
 
@@ -137,11 +154,11 @@ public class MyMazeGenerator extends AMazeGenerator {
         if (y+2 <= col-1){
             if (matrix[x][y+2] == 0){
                 P = new Position(x, y+2);
-                neighbor_list.add(P);
+                Neighbor_set.add(P);
             }
         }
 
-        return neighbor_list;
+        return Neighbor_set;
 
     }
 

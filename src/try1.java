@@ -2,17 +2,17 @@ import algorithms.mazeGenerators.*;
 
 public class try1 {
     public static void main(String[] args) {
-        SimpleMazeGenerator empty = new SimpleMazeGenerator();
+        MyMazeGenerator mymaze = new MyMazeGenerator();
         long start_time = System.currentTimeMillis();
-        Maze empty_maze = empty.generate(100,100);
-        empty_maze.print();
+        Maze my_maze = mymaze.generate(20,21);
+        my_maze.print();
         long end_time = System.currentTimeMillis();
-        System.out.println("time to build and print Simple Maze 100X100 = " + (end_time - start_time)/1000 + " seconds");
-        if (empty_maze.getStartPosition().equals(empty_maze.getGoalPosition())){
+        System.out.println("time to build and print Simple Maze 100X100 = " + (end_time - start_time) + " milliseconds");
+        if (my_maze.getStartPosition().equals(my_maze.getGoalPosition())){
             System.out.println("Error at RNB's functions");
         }
-        long check_time = empty.measureAlgorithmTimeMillis(1000,1000);
-        System.out.println("Time to generate Simple Maze is " + check_time/1000 + " seconds");
+        long check_time = mymaze.measureAlgorithmTimeMillis(8,8);
+        System.out.println("Time to generate Simple Maze is " + check_time + " milliseconds");
 
 
 

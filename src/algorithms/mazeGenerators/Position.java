@@ -31,8 +31,6 @@ public class Position {
     public boolean equals(Position P) {
         return (this.getRowIndex() == P.getRowIndex()) && (this.getColumnIndex() == P.getColumnIndex());
     }
-
-
     /**
      * Checks if other Position is the same or a neighbor of this
      *
