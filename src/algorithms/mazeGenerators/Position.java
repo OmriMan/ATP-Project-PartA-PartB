@@ -31,6 +31,18 @@ public class Position {
     public boolean equals(Position P) {
         return (this.getRowIndex() == P.getRowIndex()) && (this.getColumnIndex() == P.getColumnIndex());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Position p = (Position) obj;
+        return (this.getRowIndex() == p.getRowIndex()) && (this.getColumnIndex() == p.getColumnIndex());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getRowIndex()*10 + this.getColumnIndex();
+    }
+
     /**
      * Checks if other Position is the same or a neighbor of this
      *

@@ -1,7 +1,8 @@
 package algorithms.mazeGenerators;
-import java.util.HashSet;
+import java.util.Set;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.TreeSet;
 
 public class MyMazeGenerator extends AMazeGenerator {
 
@@ -21,18 +22,21 @@ public class MyMazeGenerator extends AMazeGenerator {
         Random rand = new Random();
 //        Position random_p = new Position(rand.nextInt(row), rand.nextInt(col));
         int x = rand.nextInt(row);
-        int y = rand.nextInt(col);
+        int y = 0;
         matrix[x][y] = 0;
+        Position start = new Position(x,y);
 
         //(4)Compute it's frontier cell and adds them to a List
         HashSet<Position> Frontier_set = new HashSet<>();
         Frontier_set.addAll(Find_frontier_cells(x,y, row, col,matrix));
 
+        Position random_frontier_cell;
+
         //(5) While the list of Frontier cells is not empty
         while(!Frontier_set.isEmpty()){
 
             //(5.1) Pick a random frontier cell from the list and remove it
-            Position random_frontier_cell = Get_random_from_set(Frontier_set);
+            random_frontier_cell = Get_random_from_set(Frontier_set);
             Frontier_set.remove(random_frontier_cell);
 
             //(5.2) Compute frontier cells of the random frontier cell from the list and adds them to list
@@ -50,9 +54,11 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         }
 
-        Position start = new Position(2,0);
-        Position end = new Position(row-1,6);
-        Maze maze = new Maze(matrix, start, end);
+
+
+//        Position start = RND_Start_Position(row, col, matrix);
+        Position goal = RND_Goal_Position(row, col, start, matrix);
+        Maze maze = new Maze(matrix, start, goal);
 
         return maze;
 
@@ -61,6 +67,7 @@ public class MyMazeGenerator extends AMazeGenerator {
     }
 
 
+    //@@@@@@@@@@MAYBE NEED TO BE IN SET CLASS@@@@@@@@@@@@@@@@@@@@@@@
     //Helper function that returns a random object from a given Set
     private Position Get_random_from_set(HashSet<Position> Set){
         Random rand = new Random();
@@ -192,4 +199,24 @@ public class MyMazeGenerator extends AMazeGenerator {
 
         return matrix;
     }
+
+
+    private Position RND_Start_Position(int row, int col, int[][]matrix){
+        Position Pos_to_return;
+        do {
+            Pos_to_return = RND_Position(row, col);
+        }while(matrix[Pos_to_return.getRowIndex()][Pos_to_return.getColumnIndex()] == 1);
+
+        return Pos_to_return;
+    }
+
+    private Position RND_Goal_Position(int row, int col, Position start_pos, int[][]matrix){
+        Position Pos_to_return;
+        do {
+            Pos_to_return = RND_Start_Position(row, col, matrix);
+        }while(Pos_to_return.is_neighbor(start_pos));
+
+        return Pos_to_return;
+    }
 }
+
