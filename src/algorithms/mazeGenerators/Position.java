@@ -24,7 +24,6 @@ public class Position {
 
     /**
      * Overriding of the 'equals' method, checks if other position equals this
-     *
      * @param P position to check
      * @return boolean value if other position is equal
      */
@@ -32,12 +31,21 @@ public class Position {
         return (this.getRowIndex() == P.getRowIndex()) && (this.getColumnIndex() == P.getColumnIndex());
     }
 
+    /**
+     * Overriding of the 'equals' method, checks if other position equals this
+     * @param obj obj to check
+     * @return boolean value if other position is equal
+     */
     @Override
     public boolean equals(Object obj) {
         Position p = (Position) obj;
         return (this.getRowIndex() == p.getRowIndex()) && (this.getColumnIndex() == p.getColumnIndex());
     }
 
+    /**
+     * Overriding of the 'hashCode' method
+     * @return boolean value if other position is equal
+     */
     @Override
     public int hashCode() {
         return this.getRowIndex()*10 + this.getColumnIndex();
