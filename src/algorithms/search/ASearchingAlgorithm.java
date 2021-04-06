@@ -1,5 +1,8 @@
 package algorithms.search;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     private int visitedNodes;
 
@@ -13,5 +16,10 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     @Override
     public int GetNumberOfVisitedNodes() {
         return visitedNodes;
+    }
+
+    protected ArrayList<AState> get_(AState curr){
+        return null;
+
     }
 }
