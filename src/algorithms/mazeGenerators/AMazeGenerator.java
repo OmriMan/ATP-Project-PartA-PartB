@@ -30,6 +30,11 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         return matrix;
     }
 
+    public void is_good_size(int row,int col) throws Exception {
+        if (row<3 || col<3){
+            throw new Exception("Maze size too small :( - generating default size(5X5)");
+        }
+    }
     /**
      * Generates a random Position on the frame of the Maze.
      *

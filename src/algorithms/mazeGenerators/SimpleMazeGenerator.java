@@ -12,6 +12,14 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      */
     @Override
     public Maze generate(int row, int col) {
+        try{
+            is_good_size(row,col);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            row = 5;
+            col =5;
+        }
         Position start = this.RND_Start_Position(row,col);
         Position goal = this.RND_Goal_Position(row,col,start);
         Maze maze = new Maze(this.Create_2D_matrix(row,col),start,goal);
