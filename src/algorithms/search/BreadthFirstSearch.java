@@ -4,6 +4,21 @@ import java.util.*;
 
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
+    protected Queue<AState> unvisited;
+
+    /**
+     * Constructor
+     */
+    public BreadthFirstSearch() {
+        this.unvisited = new LinkedList<>();
+    }
+
+
+    /**
+     * Implements the BFS algorithm
+     * @param domain The problem we want to solve
+     * @return A Solution object
+     */
     @Override
     public Solution solve(ISearchable domain) {
         //Initialize states
@@ -12,9 +27,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState current = null;
 
         //Initializes containers
-        Queue<AState> unvisited = new LinkedList<>();
         HashSet<AState> visited = new HashSet<>();
         Stack<AState> solution_stack = new Stack<>();
+        ArrayList<AState> Possible_moves;
 
         unvisited.add(start);
         while(!unvisited.isEmpty()){
@@ -27,7 +42,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             }
 
             //Gets all Possible states to reach
-            ArrayList<AState> Possible_moves = domain.getAllSuccessors(current);
+            Possible_moves = domain.getAllSuccessors(current);
+
             while(!Possible_moves.isEmpty()){
                 AState temp = Possible_moves.remove(0);
 
@@ -36,6 +52,12 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     unvisited.add(temp);
                 }
             }
+        }
+
+        //If there is no Solution to the problem - we never reach Goal State
+        if (!(current.equals(goal)))
+        {
+            return new Solution(solution_stack);
         }
 
         //Current is at goal - we trace back the path using getCameFrom

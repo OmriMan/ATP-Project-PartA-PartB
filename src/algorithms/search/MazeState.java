@@ -2,7 +2,7 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
 
-public class MazeState extends AState{
+public class MazeState extends AState implements Comparable<MazeState>{
     Position pos;
 
     /**
@@ -51,5 +51,11 @@ public class MazeState extends AState{
     @Override
     public String toString() {
         return this.getPos().toString();
+    }
+
+
+    @Override
+    public int compareTo(MazeState o) {
+        return (int) (this.getCost() - o.getCost());
     }
 }

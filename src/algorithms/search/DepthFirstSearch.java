@@ -5,6 +5,12 @@ import java.util.HashSet;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm{
+
+    /**
+     * Implements the DFS algorithm
+     * @param domain The problem we want to solve
+     * @return A Solution object
+     */
     @Override
     public Solution solve(ISearchable domain) {
         //Initialize states
@@ -16,7 +22,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
         HashSet <AState> visited = new HashSet<>();
         Stack<AState> unvisited = new Stack<>();
         Stack<AState> solution_stack = new Stack<>();
-        ArrayList<AState> possible_moves = new ArrayList<>();
+        ArrayList<AState> possible_moves;
 
         unvisited.push(start);
         while (!(unvisited.empty())){
@@ -37,6 +43,11 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
                     unvisited.push(possible_moves.get(i));
                 }
             }
+        }
+        //If there is no Solution to the problem - we never reach Goal State
+        if (!(current.equals(goal)))
+        {
+           return new Solution(solution_stack);
         }
 
         //Current is at goal - we trace back the path using getCameFrom

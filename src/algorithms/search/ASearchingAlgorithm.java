@@ -18,11 +18,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
         return visitedNodes;
     }
 
-    protected ArrayList<AState> get_(AState curr){
-        return null;
-
-    }
-
 
     public void setVisitedNodes(int visitedNodes) {
         this.visitedNodes = visitedNodes;
