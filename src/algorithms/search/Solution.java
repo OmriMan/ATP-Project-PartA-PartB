@@ -6,17 +6,14 @@ import java.util.Stack;
 public class Solution {
     private ArrayList<AState> states;
 
-    public Solution(ArrayList<AState> states) {
-        this.states = states;
+    public Solution(Stack<AState> Stack_states) {
+        while(!Stack_states.empty()){
+            states.add(Stack_states.pop());
+        }
     }
 
     public ArrayList<AState> getSolutionPath() {
         return states;
     }
 
-    public void setStates(Stack<AState> Stack_states) {
-        while(!Stack_states.empty()){
-            states.add(Stack_states.pop());
-        }
-    }
 }

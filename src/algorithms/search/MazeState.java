@@ -7,9 +7,9 @@ public class MazeState extends AState{
 
     /**
      * Constructors
-     * @param cost
-     * @param cameFrom
-     * @param pos
+     * @param cost 10 for regular move(up, down, right, left), 15 for diagonals
+     * @param cameFrom State from which we got to current state
+     * @param pos Current Position
      */
     public MazeState(double cost, AState cameFrom, Position pos) {
         super(cost, cameFrom);
@@ -35,5 +35,15 @@ public class MazeState extends AState{
 
     public void setPos(Position pos) {
         this.pos = pos;
+    }
+
+    @Override
+    public int hashCode() {
+        return pos.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return pos.equals(obj);
     }
 }
