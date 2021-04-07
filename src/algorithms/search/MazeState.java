@@ -44,6 +44,12 @@ public class MazeState extends AState{
 
     @Override
     public boolean equals(Object obj) {
-        return pos.equals(obj);
+        MazeState temp = (MazeState) obj;
+        return pos.equals(temp.getPos());
+    }
+
+    @Override
+    public String toString() {
+        return this.getPos().toString();
     }
 }

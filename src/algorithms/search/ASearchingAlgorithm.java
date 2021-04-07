@@ -14,12 +14,17 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     }
 
     @Override
-    public int GetNumberOfVisitedNodes() {
+    public int getNumberOfNodesEvaluated() {
         return visitedNodes;
     }
 
     protected ArrayList<AState> get_(AState curr){
         return null;
 
+    }
+
+
+    public void setVisitedNodes(int visitedNodes) {
+        this.visitedNodes = visitedNodes;
     }
 }

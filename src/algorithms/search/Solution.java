@@ -7,6 +7,7 @@ public class Solution {
     private ArrayList<AState> states;
 
     public Solution(Stack<AState> Stack_states) {
+        states = new ArrayList<>();
         while(!Stack_states.empty()){
             states.add(Stack_states.pop());
         }
