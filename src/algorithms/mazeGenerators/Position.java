@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.Objects;
+
 public class Position {
     private int RowIndex;
     private int ColumnIndex;
@@ -48,7 +50,7 @@ public class Position {
      */
     @Override
     public int hashCode() {
-        return this.getRowIndex()*10 + this.getColumnIndex();
+        return Objects.hash(RowIndex, ColumnIndex);
     }
 
     /**
