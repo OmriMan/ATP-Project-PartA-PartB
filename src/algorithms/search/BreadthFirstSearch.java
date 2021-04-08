@@ -4,15 +4,18 @@ import java.util.*;
 
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
-    protected Queue<AState> unvisited;
+    //protected Queue<AState> unvisited;
 
     /**
      * Constructor
      */
-    public BreadthFirstSearch() {
-        this.unvisited = new LinkedList<>();
+//    public BreadthFirstSearch() {
+//
+//    }
+    private Queue<AState>give_container(){
+        Queue<AState> unvisited = new LinkedList<>();
+        return unvisited;
     }
-
 
     /**
      * Implements the BFS algorithm
@@ -24,12 +27,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         //Initialize states
         AState start = domain.getStartState();
         AState goal = domain.getGoalState();
-        AState current = null;
+        AState current = start;
 
         //Initializes containers
         HashSet<AState> visited = new HashSet<>();
         Stack<AState> solution_stack = new Stack<>();
         ArrayList<AState> Possible_moves;
+        Queue<AState> unvisited = give_container();
 
         unvisited.add(start);
         while(!unvisited.isEmpty()){
@@ -43,15 +47,19 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
             //Gets all Possible states to reach
             Possible_moves = domain.getAllSuccessors(current);
-
-            while(!Possible_moves.isEmpty()){
-                AState temp = Possible_moves.remove(0);
-
-                //Add state to unvisited if it is not in visited
-                if (!visited.contains(temp)){
-                    unvisited.add(temp);
+            for (int i=0;i< Possible_moves.size();i++){
+                if (!(visited.contains(Possible_moves.get(i)))){
+                    unvisited.add(Possible_moves.get(i));
                 }
             }
+//            while(!Possible_moves.isEmpty()){
+//                AState temp = Possible_moves.remove(0);
+//
+//                //Add state to unvisited if it is not in visited
+//                if (!visited.contains(temp)){
+//                    unvisited.add(temp);
+//                }
+//            }
         }
 
         //If there is no Solution to the problem - we never reach Goal State
@@ -62,10 +70,10 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
         //Current is at goal - we trace back the path using getCameFrom
         while(current.getCameFrom() != null){
-            solution_stack.add(current);
+            solution_stack.push(current);
             current = current.getCameFrom();
         }
-        solution_stack.add(current);
+        solution_stack.push(start);
         setVisitedNodes(visited.size());
 
         return new Solution(solution_stack);
