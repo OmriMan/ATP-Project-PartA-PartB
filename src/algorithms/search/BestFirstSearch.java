@@ -10,9 +10,8 @@ public class BestFirstSearch extends BreadthFirstSearch{
         //unvisited = new PriorityQueue<>();
     }
 
-    private Queue<AState>give_container(){
-        Queue<AState> unvisited = new PriorityQueue<>();
-        return unvisited;
+    public Queue<AState>give_container(){
+        return new PriorityQueue<>();
     }
 
     @Override

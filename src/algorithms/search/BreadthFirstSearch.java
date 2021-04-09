@@ -13,8 +13,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 //
 //    }
     private Queue<AState>give_container(){
-        Queue<AState> unvisited = new LinkedList<>();
-        return unvisited;
+        //Queue<AState> unvisited = new LinkedList<>();
+        return new LinkedList<>();
     }
 
     /**
@@ -47,12 +47,13 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
             //Gets all Possible states to reach
             Possible_moves = domain.getAllSuccessors(current);
-            for (int i=0;i< Possible_moves.size();i++){
-                if (!(visited.contains(Possible_moves.get(i)))){
-                    unvisited.add(Possible_moves.get(i));
+            for (AState possible_move : Possible_moves) {
+                if ((visited.contains(possible_move))) {
+                    continue;
                 }
+                unvisited.add(possible_move);
             }
-//            while(!Possible_moves.isEmpty()){
+            //            while(!Possible_moves.isEmpty()){
 //                AState temp = Possible_moves.remove(0);
 //
 //                //Add state to unvisited if it is not in visited
@@ -63,7 +64,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         }
 
         //If there is no Solution to the problem - we never reach Goal State
-        if (!(current.equals(goal)))
+        if (!current.equals(goal))
         {
             return new Solution(solution_stack);
         }

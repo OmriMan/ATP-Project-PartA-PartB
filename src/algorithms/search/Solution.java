@@ -16,7 +16,7 @@ public class Solution {
     public ArrayList<AState> getSolutionPath() {
         if (states.isEmpty()){
             System.out.println("There is not Solution to the maze");
-            return null;
+            return new ArrayList<>();
         }
         return states;
     }

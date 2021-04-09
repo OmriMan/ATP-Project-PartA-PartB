@@ -44,6 +44,9 @@ public class MazeState extends AState implements Comparable<MazeState>{
 
     @Override
     public boolean equals(Object obj) {
+        if(!(obj instanceof MazeState)) {
+            return false;
+        }
         MazeState temp = (MazeState) obj;
         return pos.equals(temp.getPos());
     }

@@ -38,6 +38,7 @@ public class SearchableMaze implements ISearchable{
         //Given state properties
         MazeState curr_state = (MazeState) s;
         Position curr_position = curr_state.getPos();
+        Position temp;
         int curr_row = curr_position.getRowIndex();
         int curr_col = curr_position.getColumnIndex();
 
@@ -52,88 +53,102 @@ public class SearchableMaze implements ISearchable{
         boolean left_up= false;
         boolean up = false;
 
+        //matrix
+        int[][] MyMaze = maze.getMaze_matrix();
 
         //Checks up
-        if (curr_row-1>=0 && maze.getMaze_matrix()[curr_row-1][curr_col] == 0){
+        if (curr_row-1>=0 && MyMaze[curr_row-1][curr_col] == 0){
             //MazeState new_s = new MazeState( 10,m,new Position(curr_row-1,curr_col));
-            states_list.add(new MazeState( 10 + curr_state.getCost(),curr_state,new Position(curr_row-1,curr_col)));
+            temp = new Position(curr_row-1,curr_col);
+            states_list.add(new MazeState( 10 + curr_state.getCost(),curr_state,temp));
             up = true;
 
             //Checks up-right
-            if (curr_col+1<col && maze.getMaze_matrix()[curr_row-1][curr_col+1] == 0){
-                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row-1, curr_col+1 )));
+            if (curr_col+1<col && MyMaze[curr_row-1][curr_col+1] == 0){
+                temp = new Position(curr_row-1, curr_col+1 );
+                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
                 up_right = true;
             }
         }
 
 
         //Checks right
-        if (curr_col + 1 < col && maze.getMaze_matrix()[curr_row][curr_col + 1] == 0) {
+        if (curr_col + 1 < col && MyMaze[curr_row][curr_col + 1] == 0) {
             
             //Checks right-up
-                if (!up_right && curr_row-1>=0 && maze.getMaze_matrix()[curr_row-1][curr_col+1] == 0){
+                if (!up_right && curr_row-1>=0 && MyMaze[curr_row-1][curr_col+1] == 0){
                     //Adds right-up
-                    states_list.add(new MazeState( 15 + curr_state.getCost() ,curr_state,new Position(curr_row-1,curr_col+1)));
+                    temp = new Position(curr_row-1, curr_col+1 );
+                    states_list.add(new MazeState( 15 + curr_state.getCost() ,curr_state,temp));
 
             }
             //Adds right
-            states_list.add(new MazeState(10 + curr_state.getCost() , curr_state, new Position(curr_row, curr_col+1)));
+            temp =  new Position(curr_row, curr_col+1);
+            states_list.add(new MazeState(10 + curr_state.getCost() , curr_state,temp));
             
             //Checks right-down
-            if (curr_row + 1 < row && maze.getMaze_matrix()[curr_row+1][curr_col+1]==0){
+            if (curr_row + 1 < row && MyMaze[curr_row+1][curr_col+1]==0){
                 right_down = true;
                 //Adds right-down
-                states_list.add(new MazeState(15+ curr_state.getCost() , curr_state, new Position(curr_row+1, curr_col+1)));
+                temp = new Position(curr_row+1, curr_col+1);
+                states_list.add(new MazeState(15+ curr_state.getCost() , curr_state, temp));
             }
         }
 
 
         //Down
-        if (curr_row + 1 < row && maze.getMaze_matrix()[curr_row + 1][curr_col] == 0){
+        if (curr_row + 1 < row && MyMaze[curr_row + 1][curr_col] == 0){
 
             //Checks down-right
-            if (!right_down && curr_col +1 < col && maze.getMaze_matrix()[curr_row+1][curr_col+1] == 0){
+            if (!right_down && curr_col +1 < col && MyMaze[curr_row+1][curr_col+1] == 0){
                 //Adds right-down
-                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row+1, curr_col+1)));
+                temp = new Position(curr_row+1, curr_col+1);
+                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
             }
 
             //Adds down
-            states_list.add(new MazeState(10 + curr_state.getCost(), curr_state, new Position(curr_row+1, curr_col)));
+            temp = new Position(curr_row+1, curr_col);
+            states_list.add(new MazeState(10 + curr_state.getCost(), curr_state, temp));
 
 
             //Checks down-left
-            if (curr_col-1 >= 0 && maze.getMaze_matrix()[curr_row+1][curr_col-1]==0){
+            if (curr_col-1 >= 0 && MyMaze[curr_row+1][curr_col-1]==0){
                 down_left = true;
                 //Adds down-left
-                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row+1, curr_col-1)));
+                temp = new Position(curr_row+1, curr_col-1);
+                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
             }
         }
 
 
         //Left
-        if (curr_col - 1 >= 0 && maze.getMaze_matrix()[curr_row][curr_col-1] == 0){
+        if (curr_col - 1 >= 0 && MyMaze[curr_row][curr_col-1] == 0){
 
             //Checks left-down
-            if (!down_left && curr_row + 1 < row && maze.getMaze_matrix()[curr_row + 1][curr_col - 1] == 0){
+            if (!down_left && curr_row + 1 < row && MyMaze[curr_row + 1][curr_col - 1] == 0){
                 //Adds down-left
-                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row+1, curr_col-1)));
+                temp = new Position(curr_row+1, curr_col-1);
+                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
             }
 
             //Adds left
-            states_list.add(new MazeState(10 + curr_state.getCost(), curr_state, new Position(curr_row, curr_col - 1)));
+            temp = new Position(curr_row, curr_col - 1);
+            states_list.add(new MazeState(10 + curr_state.getCost(), curr_state, temp));
 
             //Checks left-up
-            if (curr_row - 1 >= 0 && maze.getMaze_matrix()[curr_row - 1][curr_col - 1] == 0){
+            if (curr_row - 1 >= 0 && MyMaze[curr_row - 1][curr_col - 1] == 0){
                 left_up = true;
                 //Adds left-up
-                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row-1, curr_col-1)));
+                temp = new Position(curr_row-1, curr_col-1);
+                states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
             }
         }
 
 
         //Checks up-left
-        if (!left_up && up && curr_col-1 >= 0 && maze.getMaze_matrix()[curr_row-1][curr_col-1] == 0){
-            states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, new Position(curr_row-1, curr_col-1)));
+        if (!left_up && up && curr_col-1 >= 0 && MyMaze[curr_row-1][curr_col-1] == 0){
+            temp = new Position(curr_row-1, curr_col-1);
+            states_list.add(new MazeState(15 + curr_state.getCost(), curr_state, temp));
         }
 
         return states_list;
