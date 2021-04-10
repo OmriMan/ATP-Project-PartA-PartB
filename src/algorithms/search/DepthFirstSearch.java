@@ -34,12 +34,12 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
                 break;
             }
 
-            //Gets all Possible states to reach
+            //Gets all Possible states to reach from current state
             possible_moves = domain.getAllSuccessors(current);
 
-            //Add state to unvisited if it is not in visited
+            //Add state to unvisited only if it's not already in unvisited or visited
             for (int i=0;i< possible_moves.size();i++){
-                if (!(visited.contains(possible_moves.get(i)))){
+                if (!(visited.contains(possible_moves.get(i))) && !(unvisited.contains(possible_moves.get(i)))){
                     unvisited.push(possible_moves.get(i));
                 }
             }
