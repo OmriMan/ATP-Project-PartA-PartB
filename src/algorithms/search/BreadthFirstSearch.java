@@ -4,17 +4,14 @@ import java.util.*;
 
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
-    //protected Queue<AState> unvisited;
+    protected Queue<AState> unvisited;
 
     /**
-     * Constructor
+     * Constructor - Creates a new Queue as a LinkedList
      */
-//    public BreadthFirstSearch() {
-//
-//    }
-    private Queue<AState>give_container(){
-        //Queue<AState> unvisited = new LinkedList<>();
-        return new LinkedList<>();
+    public BreadthFirstSearch() {
+        this.unvisited = new LinkedList<>();
+
     }
 
     /**
@@ -33,8 +30,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         HashSet<AState> visited = new HashSet<>();
         Stack<AState> solution_stack = new Stack<>();
         ArrayList<AState> Possible_moves;
-        Queue<AState> unvisited = give_container();
 
+        //Unvisited is initialized in BFS/BestFirstSearch constructor
         unvisited.add(start);
         while(!unvisited.isEmpty()){
             current = unvisited.remove();
@@ -45,22 +42,16 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 break;
             }
 
-            //Gets all Possible states to reach
+            //Gets all Possible states to reach from current state
             Possible_moves = domain.getAllSuccessors(current);
+
+            //Add state to unvisited only if it's not already in unvisited or visited
             for (AState possible_move : Possible_moves) {
-                if ((visited.contains(possible_move))) {
+                if ((visited.contains(possible_move)) || unvisited.contains(possible_move)) {
                     continue;
                 }
                 unvisited.add(possible_move);
             }
-            //            while(!Possible_moves.isEmpty()){
-//                AState temp = Possible_moves.remove(0);
-//
-//                //Add state to unvisited if it is not in visited
-//                if (!visited.contains(temp)){
-//                    unvisited.add(temp);
-//                }
-//            }
         }
 
         //If there is no Solution to the problem - we never reach Goal State
