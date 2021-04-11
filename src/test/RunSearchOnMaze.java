@@ -3,18 +3,16 @@ import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.*;
+
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
-    public static void main(String[] args) { IMazeGenerator mg = new MyMazeGenerator(); Maze maze = mg.generate(70, 50);
+    public static void main(String[] args) {
+        IMazeGenerator mg = new MyMazeGenerator(); Maze maze = mg.generate(30, 30);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
-//        maze.print();
-        long start_time = System.currentTimeMillis();
-//        solveProblem(searchableMaze, new DepthFirstSearch());
+        solveProblem(searchableMaze, new BreadthFirstSearch());
+        solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
-//        solveProblem(searchableMaze, new BreadthFirstSearch());
-        long end_time = System.currentTimeMillis();
-        System.out.println(end_time-start_time + " -:)");
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
 //Solve a searching problem with a searcher
