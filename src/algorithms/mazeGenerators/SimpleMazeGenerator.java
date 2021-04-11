@@ -16,7 +16,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
             is_good_size(row,col);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
             row = 5;
             col =5;
         }
