@@ -31,7 +31,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
     }
 
     public void is_good_size(int row,int col) throws Exception {
-        if (row<3 || col<3){
+        if (row<2 || col<2){
             throw new Exception("Maze size too small :( - generating default size(5X5)");
         }
     }
