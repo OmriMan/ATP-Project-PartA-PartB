@@ -28,30 +28,20 @@ public abstract  class AState {
     }
 
     /**
-     * add cost to this state
-     * @param to_add
-     */
-    public void AddCost(double to_add){
-        cost+=to_add;
-    }
-    /**
-     * getter and setters
-     * @return
+     * getter for cost
+     * @return the cost of this state
      */
     public double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
 
+    /**
+     * Getter for CameFrom
+     * @return the Astate from where we came from
+     */
     public AState getCameFrom() {
         return cameFrom;
-    }
-
-    public void setCameFrom(AState cameFrom) {
-        this.cameFrom = cameFrom;
     }
 
 }

@@ -50,11 +50,6 @@ public class Position {
      * Overriding of the 'hashCode' method
      * @return boolean value if other position is equal
      */
-//    @Override
-//    public int hashCode() {
-//        return this.getRowIndex(). + this.getColumnIndex();
-//    }
-
     @Override
     public int hashCode() {
         return Objects.hash(RowIndex, ColumnIndex);

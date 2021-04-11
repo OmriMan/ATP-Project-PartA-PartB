@@ -26,7 +26,7 @@ public class SearchableMaze implements ISearchable{
     }
 
     /**
-     *
+     * Finds all the Possible moves from Astate s
      * @param s Current state to check
      * @return ArrayList of all the "passage" AState that near s
      */

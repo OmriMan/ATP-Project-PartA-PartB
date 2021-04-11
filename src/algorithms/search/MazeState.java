@@ -16,26 +16,19 @@ public class MazeState extends AState implements Comparable<MazeState>{
         this.pos = pos;
     }
 
-    public MazeState(double cost, Position pos) {
-        super(cost);
-        this.pos = pos;
-    }
 
     public MazeState(Position pos) {
         this.pos = pos;
     }
 
     /**
-     * Getter and Setter
-     * @return
+     * Getter of Position
+     * @return Position of this
      */
     public Position getPos() {
         return pos;
     }
 
-    public void setPos(Position pos) {
-        this.pos = pos;
-    }
 
     @Override
     public int hashCode() {

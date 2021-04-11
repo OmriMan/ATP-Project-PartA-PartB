@@ -94,21 +94,6 @@ public class Maze {
         }
         return false;
     }
-// argument here its position
-//    public boolean Is_Start(Position p)
-//    {
-//        if (p.getRowIndex()==this.getStartPosition().getRowIndex() && p.getColumnIndex()== this.getStartPosition().getColumnIndex()){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean Is_Goal(Position p)
-//    {
-//        if (p.getRowIndex()==this.getGoalPosition().getRowIndex() && p.getColumnIndex()== this.getGoalPosition().getColumnIndex()){
-//            return true;
-//        }
-//        return false;
-//    }
+
 }
 
