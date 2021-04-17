@@ -185,6 +185,10 @@ public class MyMazeGenerator extends AMazeGenerator {
         Random rand = new Random();
         int temp_row = rand.nextInt(row);
 
+        if ((row==2 && col==2) || (row == 2 && col==3) || (row==3 && col==2) || (row==3 && col==3)){
+            return new Position(start_pos.getRowIndex(), col-1);
+        }
+
         if (col % 2 == 1){ //col is odd, there must be cells on most right columns with 0
             while(temp_row == start_pos.getRowIndex() || matrix[temp_row][col - 1] == 1){
                 temp_row = rand.nextInt(row);
