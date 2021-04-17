@@ -1,8 +1,8 @@
 package algorithms.search;
 
-import java.awt.*;
-import java.util.ArrayList;
-
+/**
+ * Abstract class of all Searching Algorithms
+ */
 public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     private int visitedNodes;
 
@@ -17,7 +17,6 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     public int getNumberOfNodesEvaluated() {
         return visitedNodes;
     }
-
 
     public void setVisitedNodes(int visitedNodes) {
         this.visitedNodes = visitedNodes;

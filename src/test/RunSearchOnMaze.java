@@ -7,14 +7,15 @@ import algorithms.search.*;
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
-    public static void main(String[] args) {
-        IMazeGenerator mg = new MyMazeGenerator(); Maze maze = mg.generate(30, 30);
+    public static void main(String[] args) throws Exception {
+        IMazeGenerator mg = new MyMazeGenerator(); Maze maze = mg.generate(10, 10);
+        maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         solveProblem(searchableMaze, new BreadthFirstSearch());
         solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
     }
-    private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
+    private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) throws Exception {
 //Solve a searching problem with a searcher
         Solution solution = searcher.solve(domain);
         System.out.println(String.format("'%s' algorithm - nodes evaluated:%s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));

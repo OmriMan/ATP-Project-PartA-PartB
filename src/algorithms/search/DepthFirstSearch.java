@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
+/**
+ * Solving algorithm of DFS - finds a path from start to goal.
+ */
 public class DepthFirstSearch extends ASearchingAlgorithm{
 
     /**
@@ -12,7 +15,10 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
      * @return A Solution object
      */
     @Override
-    public Solution solve(ISearchable domain) {
+    public Solution solve(ISearchable domain) throws Exception {
+        if (domain == null){
+            throw new Exception("There is no problem to solve");
+        }
         //Initialize states
         AState start = domain.getStartState();
         AState goal = domain.getGoalState();
@@ -38,9 +44,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
             possible_moves = domain.getAllSuccessors(current);
 
             //Add state to unvisited only if it's not already in unvisited or visited
-            for (int i=0;i< possible_moves.size();i++){
-                if (!(visited.contains(possible_moves.get(i))) && !(unvisited.contains(possible_moves.get(i)))){
-                    unvisited.push(possible_moves.get(i));
+            for (AState possible_move : possible_moves) {
+                if (!(visited.contains(possible_move)) && !(unvisited.contains(possible_move))) {
+                    unvisited.push(possible_move);
                 }
             }
         }

@@ -17,7 +17,7 @@ class BestFirstSearchTest {
 
     //Checks that getName returns the correct name
     @Test
-    void getName() throws Exception{
+    void getName(){
         assertEquals("Best First Search", algo.getName());
     }
 
@@ -89,6 +89,20 @@ class BestFirstSearchTest {
        ArrayList<AState> array_sol = sol.getSolutionPath();
        MazeState solver_goal_state = (MazeState) array_sol.get(array_sol.size()-1);
        assertTrue(end_p.equals((solver_goal_state.getPos())));
+    }
+
+    //Checks that solve method throws Exception if argument is null
+    @Test
+    void Check_Null(){
+        try{
+            Solution sol = algo.solve(null);
+        }
+        catch (Exception e){
+            assertTrue(true);
+            return;
+
+        }
+        fail();
     }
 
 }

@@ -2,7 +2,9 @@ package algorithms.search;
 
 import java.util.*;
 
-
+/**
+ * Solving algorithm of BFS - finds the shortest path from start to goal.
+ */
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected Queue<AState> unvisited;
 
@@ -20,7 +22,11 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
      * @return A Solution object
      */
     @Override
-    public Solution solve(ISearchable domain) {
+    public Solution solve(ISearchable domain) throws Exception {
+        if (domain == null){
+            throw new Exception("There is no problem to solve");
+        }
+
         //Initialize states
         AState start = domain.getStartState();
         AState goal = domain.getGoalState();

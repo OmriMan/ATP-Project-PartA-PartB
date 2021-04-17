@@ -2,6 +2,9 @@ package algorithms.search;
 
 import algorithms.mazeGenerators.Position;
 
+/**
+ * Object adapter of Astate for the Maze problem
+ */
 public class MazeState extends AState implements Comparable<MazeState>{
     Position pos;
 

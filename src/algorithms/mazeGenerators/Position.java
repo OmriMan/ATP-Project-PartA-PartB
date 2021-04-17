@@ -2,6 +2,9 @@ package algorithms.mazeGenerators;
 
 import java.util.Objects;
 
+/**
+ * Class that represents a Position in the Maze
+ */
 public class Position {
     private int RowIndex;
     private int ColumnIndex;
@@ -66,9 +69,6 @@ public class Position {
             return true;
         else if (this.getRowIndex() == P.getRowIndex() && (this.getColumnIndex() == P.getColumnIndex() + 1 || this.getColumnIndex() == P.getColumnIndex() -1))
             return true;
-        else if (this.getColumnIndex() == P.getColumnIndex() && (this.getRowIndex() == P.getRowIndex() + 1 || this.getRowIndex() == P.getRowIndex() -1))
-            return true;
-
-        return false;
+        else return this.getColumnIndex() == P.getColumnIndex() && (this.getRowIndex() == P.getRowIndex() + 1 || this.getRowIndex() == P.getRowIndex() - 1);
     }
 }

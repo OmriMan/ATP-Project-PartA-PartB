@@ -1,6 +1,9 @@
 package algorithms.mazeGenerators;
 import java.util.Random;
 
+/**
+ * Abstract class of all Maze Generator algorithms
+ */
 public abstract class AMazeGenerator implements IMazeGenerator {
 
     /**
@@ -11,7 +14,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @return the time of the maze generation in milliseconds
      */
     @Override
-    public long measureAlgorithmTimeMillis(int row, int col) {
+    public long measureAlgorithmTimeMillis(int row, int col) throws Exception {
         long start_time = System.currentTimeMillis();
         generate(row, col);
         long end_time = System.currentTimeMillis();
@@ -20,19 +23,19 @@ public abstract class AMazeGenerator implements IMazeGenerator {
 
     /**
      * Create empty table (full of zero's) size rowXcol
-     * @param row
-     * @param col
+     * @param row - number of rows
+     * @param col - number of columns
      * @return 2D array of int
      */
     public int[][] Create_2D_matrix(int row,int col)
     {
-        int[][] matrix = new int[row][col];
-        return matrix;
+        return new int[row][col];
+
     }
 
     public void is_good_size(int row,int col) throws Exception {
         if (row<2 || col<2){
-            throw new Exception("Maze size too small :( - generating default size(5X5)");
+            throw new Exception("Maze size too small :( Should be at least 2x2");
         }
     }
     /**
@@ -49,8 +52,8 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         //Generates a random Position on the sides of the maze
         if (x == 0 || x == row -1) {
             int y = rand.nextInt(col);
-            Position new_RND_Pos = new Position(x,y);
-            return new_RND_Pos;
+            return new Position(x,y);
+
         }
 
         //Generates a random Position on the top or the bottom of the maze
@@ -58,13 +61,11 @@ public abstract class AMazeGenerator implements IMazeGenerator {
             int y = rand.nextInt(2);
             if (y == 0)//Top of maze
             {
-                Position new_RND_Pos = new Position(x,0);
-                return new_RND_Pos;
+                return new Position(x,0);
             }
 
             //Bottom of maze
-            Position new_RND_Pos = new Position(x,col-1);
-            return new_RND_Pos;
+            return new Position(x,col-1);
         }
     }
 

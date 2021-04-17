@@ -12,14 +12,10 @@ public class MyMazeGenerator extends AMazeGenerator {
      * @return a Maze
      */
     @Override
-    public Maze generate(int row, int col) {
-        try{
-            is_good_size(row,col);
-        }
-        catch (Exception e){
-            row = 5;
-            col =5;
-        }
+    public Maze generate(int row, int col) throws Exception {
+
+        is_good_size(row, col);
+
         int[][] matrix = Create_2D_matrix(row, col);
 
         // Fills all cells in matrix with state "Blocked"

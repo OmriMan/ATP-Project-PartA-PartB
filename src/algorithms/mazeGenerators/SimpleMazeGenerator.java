@@ -11,18 +11,13 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      * @return maze with at least two paths from start position to goal position
      */
     @Override
-    public Maze generate(int row, int col) {
-        try{
-            is_good_size(row,col);
-        }
-        catch (Exception e){
-            row = 5;
-            col =5;
-        }
+    public Maze generate(int row, int col) throws Exception {
+        is_good_size(row,col);
+
         Position start = this.RND_Start_Position(row,col);
         Position goal = this.RND_Goal_Position(row,col,start);
         Maze maze = new Maze(this.Create_2D_matrix(row,col),start,goal);
-        Build_RNB_Walls(row,col,maze);
+        Build_RND_Walls(row,col,maze);
 
         //Finds a random cell and connects start to goal via this random cell
         Random rand = new Random();
@@ -41,9 +36,9 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      * fill maze table with zero or one by random
      * @param row - number of row's
      * @param col - number of column's
-     * @param maze
+     * @param maze - maze
      */
-    private void Build_RNB_Walls(int row,int col,Maze maze)
+    private void Build_RND_Walls(int row,int col,Maze maze)
     {
         Random rand = new Random();
         for(int i=0;i<row;i++){
@@ -57,8 +52,6 @@ public class SimpleMazeGenerator extends AMazeGenerator{
                 {
                     maze.setMaze_matrix_by_index(i,j,1);
                 }
-
-
             }
         }
     }
@@ -67,7 +60,7 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      * build simple path from start to end
      * @param start - start position
      * @param goal - end position
-     * @param maze
+     * @param maze - maze
      */
     private void Build_Simple_Path(Position start,Position goal,Maze maze)
     {

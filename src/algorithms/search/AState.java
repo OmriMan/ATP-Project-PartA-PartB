@@ -1,13 +1,16 @@
 package algorithms.search;
 
+/**
+ * Abstract class of States in solvable problems
+ */
 public abstract  class AState {
     private double cost;
     private AState cameFrom;
 
     /**
      *  Constructor
-     * @param cost
-     * @param cameFrom
+     * @param cost cost to reach current state
+     * @param cameFrom what state sent to current state
      */
     public AState(double cost, AState cameFrom) {
         this.cost = cost;
@@ -22,10 +25,6 @@ public abstract  class AState {
         this.cameFrom = null;
     }
 
-    public AState(double cost) {
-        this.cost = cost;
-        this.cameFrom = null;
-    }
 
     /**
      * getter for cost

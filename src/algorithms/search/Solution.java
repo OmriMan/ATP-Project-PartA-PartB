@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
 
+/**
+ * Class that represents a Solution of a problem from a solving algorithm.
+ */
 public class Solution {
     private ArrayList<AState> states;
 

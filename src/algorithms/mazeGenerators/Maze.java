@@ -1,13 +1,16 @@
 package algorithms.mazeGenerators;
 
 
+/**
+ * Class that represents a 2D Maze.
+ */
 public class Maze {
     private int[][] maze_matrix;
     private Position start_pos;
     private Position goal_pos;
 
     /**
-     *
+     *Constructor
      * @param maze_matrix - 2d array of int
      * @param start_pos - start Position
      * @param goal_pos - goal Position
@@ -19,14 +22,29 @@ public class Maze {
     }
 
     /**
+     * Default constructor with no parameter - in case size of maze not big enough
+     */
+    public Maze(){
+        this.maze_matrix = null;
+        this.start_pos = null;
+        this.goal_pos = null;
+    }
+
+    /**
      * Getters
      * @return start or goal by order(Position)
      */
     public Position getStartPosition() {
+        if (this.start_pos == null){
+            return null;
+        }
         return start_pos;
     }
 
     public Position getGoalPosition() {
+        if (this.goal_pos == null){
+            return null;
+        }
         return goal_pos;
     }
 
@@ -38,17 +56,16 @@ public class Maze {
         this.maze_matrix[row][col] = val;
     }
 
-    public void setMaze_matrix_by_Position(Position p,int val){
-        this.maze_matrix[p.getRowIndex()][p.getColumnIndex()] = val;
-    }
 
     /**
      * print the maze by order - maybe better implement tostring() and just call it from here ?
      */
     public void print(){
-        //mark start and goal points with 'S'(89) and 'E'(63) - not effective but make it readable
-//        this.getMaze_matrix()[this.getStartPosition().getRowIndex()][this.getStartPosition().getColumnIndex()] = 'S';
-//        this.getMaze_matrix()[this.getGoalPosition().getRowIndex()][this.getGoalPosition().getColumnIndex()] = 'E';
+        if (this.getMaze_matrix() == null){
+            System.out.println("Maze does not exist");
+            return;
+        }
+
         for(int i=0;i<this.getMaze_matrix().length;i++){
             System.out.print("{ ");
             for(int j=0;j<this.getMaze_matrix()[0].length -1 ;j++){
@@ -81,18 +98,12 @@ public class Maze {
      */
     public boolean Is_Start(int row,int col)
     {
-        if (row==this.getStartPosition().getRowIndex() && col== this.getStartPosition().getColumnIndex()){
-            return true;
-        }
-        return false;
+        return row == this.getStartPosition().getRowIndex() && col == this.getStartPosition().getColumnIndex();
     }
 
     public boolean Is_Goal(int row,int col)
     {
-        if (row==this.getGoalPosition().getRowIndex() && col== this.getGoalPosition().getColumnIndex()){
-            return true;
-        }
-        return false;
+        return row == this.getGoalPosition().getRowIndex() && col == this.getGoalPosition().getColumnIndex();
     }
 
 }

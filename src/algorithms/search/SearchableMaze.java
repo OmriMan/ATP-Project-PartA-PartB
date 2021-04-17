@@ -5,6 +5,9 @@ import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 
+/**
+ * Object adapter for maze problems. Adapts the maze problem so generic searching algorithms can be used to solve it
+ */
 public class SearchableMaze implements ISearchable{
     private Maze maze;
 
@@ -16,6 +19,10 @@ public class SearchableMaze implements ISearchable{
         maze = m;
     }
 
+    /**
+     * Getter for start/goal position
+     * @return MazeState
+     */
     @Override
     public AState getStartState() { return new MazeState(maze.getStartPosition());
     }
@@ -26,7 +33,7 @@ public class SearchableMaze implements ISearchable{
     }
 
     /**
-     * Finds all the Possible moves from Astate s
+     * Finds all the Possible moves from Astate s in a clockwise order (starts at 12:00)
      * @param s Current state to check
      * @return ArrayList of all the "passage" AState that near s
      */
@@ -42,7 +49,7 @@ public class SearchableMaze implements ISearchable{
         int curr_row = curr_position.getRowIndex();
         int curr_col = curr_position.getColumnIndex();
 
-        //limit of matrix
+        //Limit of the matrix
         int row = maze.getMaze_matrix().length;
         int col = maze.getMaze_matrix()[0].length;
 
@@ -53,7 +60,6 @@ public class SearchableMaze implements ISearchable{
         boolean left_up= false;
         boolean up = false;
 
-        //matrix
         int[][] MyMaze = maze.getMaze_matrix();
 
         //Checks up
@@ -70,7 +76,6 @@ public class SearchableMaze implements ISearchable{
                 up_right = true;
             }
         }
-
 
         //Checks right
         if (curr_col + 1 < col && MyMaze[curr_row][curr_col + 1] == 0) {
