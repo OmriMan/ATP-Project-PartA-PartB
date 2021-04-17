@@ -1,3 +1,2 @@
 # ATP-Project-PartA
-Amit Elbaz
-Omri Man
+Amit Elbaz and Omri Man
