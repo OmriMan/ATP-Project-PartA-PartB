@@ -16,6 +16,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
 
     }
 
+
     /**
      * Implements the BFS algorithm
      * @param domain The problem we want to solve
@@ -73,7 +74,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         }
         solution_stack.push(start);
         setVisitedNodes(visited.size());
-
+        unvisited.clear();
         return new Solution(solution_stack);
     }
 
