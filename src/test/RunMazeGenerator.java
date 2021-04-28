@@ -1,5 +1,9 @@
 package test;
 import algorithms.mazeGenerators.*;
+import jdk.jfr.Unsigned;
+
+import java.io.ByteArrayOutputStream;
+
 public class RunMazeGenerator {
     public static void main(String[] args) throws Exception {
         testMazeGenerator(new EmptyMazeGenerator());
@@ -18,5 +22,10 @@ public class RunMazeGenerator {
         System.out.println(String.format("Start Position: %s", maze.getStartPosition())); // format "{row,column}"
 // prints the maze exit position
         System.out.println(String.format("Goal Position: %s", maze.getGoalPosition()));
+
+        byte[] x = maze.toByteArray();
+        for (int i = 0; i < x.length; i++){
+            System.out.println(x[i]&0xff);
+        }
     }
 }

@@ -1,6 +1,9 @@
 package algorithms.mazeGenerators;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 /**
  * Class that represents a 2D Maze.
  */
@@ -104,6 +107,88 @@ public class Maze {
     public boolean Is_Goal(int row,int col)
     {
         return row == this.getGoalPosition().getRowIndex() && col == this.getGoalPosition().getColumnIndex();
+    }
+
+
+    /**
+     * Function that converts the meta data and the maze itself into a byte array.
+     * Format of meta data is: (Array[i]*256)+Array[i+1] = number (0 <= i <= 11)
+     * @return index 0-11 holds the start position, end position, row size, col size, index 12-end holds content of the maze
+     */
+    public byte[] toByteArray(){
+        //Organizes data
+        int[] maze_data = new int[6];
+        maze_data[0] = this.getStartPosition().getRowIndex();
+        maze_data[1] = this.getStartPosition().getColumnIndex();
+        maze_data[2] = this.getGoalPosition().getRowIndex();
+        maze_data[3] = this.getGoalPosition().getColumnIndex();
+        maze_data[4] = this.getMaze_matrix().length;
+        maze_data[5] = this.getMaze_matrix()[0].length;
+
+        //Adds the data of Start Position, Goal Position and size of matrix in desired format
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        for (int i = 0; i < maze_data.length; i++){
+            try{
+                out.write(ConvertIntToByteFormat(maze_data[i]));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Converts and adds the 2D matrix of the maze to the byte array
+        try {
+            out.write(ConvertIntMatrixToByte());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return out.toByteArray();
+    }
+
+
+    /**
+     * Function that receives an integer and returns a 2 byte array in the following format: (Array[0]*256)+Array[1] = number
+     * Array[0] - Number is divided in parts of 256, index 0 means number is in 0-255, index 1 means number is in 256-511 and so on...
+     * Array[1] - Offset from the given part
+     * @param number Given number to convert
+     * @return 2 byte array containing the appropriate format
+     */
+    private byte[] ConvertIntToByteFormat(int number){
+        byte[] result = new byte[2];
+        result[0] = (byte) ((int)number/256);
+        result[1] = (byte) (number-(256*result[0]));
+
+        return result;
+    }
+
+
+    /**
+     * Function that converts a 2D matrix of binary int into a 1D array of Bytes
+     * @return byte array
+     */
+    private byte[] ConvertIntMatrixToByte(){
+        int Row_size = this.getMaze_matrix().length;
+        int Col_size = this.getMaze_matrix()[0].length;
+        int[][] matrix = this.getMaze_matrix();
+        byte one = 1;
+        byte zero = 0;
+
+        //Iterates over every element in matrix and adds them to the Outstream
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        for (int i = 0; i < Row_size; i++) {
+            for (int j = 0; j < Col_size; j++) {
+                if (matrix[i][j] == 0){
+                    out.write(zero);
+                }
+
+                else{
+                    out.write(one);
+                }
+            }
+        }
+        return out.toByteArray();
     }
 
 }
