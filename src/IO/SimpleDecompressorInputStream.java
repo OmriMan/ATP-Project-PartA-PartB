@@ -39,12 +39,14 @@ public class SimpleDecompressorInputStream extends InputStream {
         offset +=12;
 
         int curr_byte = in.read();
+
+        byte[] temp;
         //Decompresses maze into byte array of the InputStream
-        while(curr_byte != -1) { //
-            byte[] temp = new byte[curr_byte]; // = 3
+        while(curr_byte != -1) {
+            temp = new byte[curr_byte]; // = 3
             Arrays.fill(temp, (byte) curr_value);//Fills temp byte array with the matching 0's/1's
             System.arraycopy(temp, 0, b, offset, curr_byte); //Copies temp array to b
-            offset += temp.length - 1;
+            offset += temp.length;
 
             //If curr_val is 0, it will change to 1
             //If curr_val is 1, it will change to 0

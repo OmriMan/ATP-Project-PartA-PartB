@@ -50,7 +50,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
             else {
                 out.write(counter);
                 out.flush();
-                counter = 0;
+                counter = 1;
                 curr_val = b[i];
             }
 
