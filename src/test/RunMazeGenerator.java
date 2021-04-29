@@ -3,6 +3,9 @@ import algorithms.mazeGenerators.*;
 import jdk.jfr.Unsigned;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
 
 public class RunMazeGenerator {
     public static void main(String[] args) throws Exception {
@@ -23,9 +26,25 @@ public class RunMazeGenerator {
 // prints the maze exit position
         System.out.println(String.format("Goal Position: %s", maze.getGoalPosition()));
 
-        byte[] x = maze.toByteArray();
-        for (int i = 0; i < x.length; i++){
-            System.out.println(x[i]&0xff);
+//        byte[] x = maze.toByteArray();
+//        for (int i = 0; i < x.length; i++){
+//            System.out.println(x[i]&0xff);
+//        }
+
+        byte[] temp = new byte[0];
+        Arrays.fill(temp, (byte) 1);
+        System.out.println("go");
+        for (int i = 0; i<temp.length; i++){
+            System.out.println(temp[i]);
         }
+
+        Arrays.fill(temp, (byte)4);
+        for (int i = 0; i<temp.length; i++){
+            System.out.println(temp[i]);
+        }
+
+//        int[][] matrix = new int[3][3];
+//        System.out.println(matrix[3]);
+//        System.out.println(matrix[0].length);
     }
 }

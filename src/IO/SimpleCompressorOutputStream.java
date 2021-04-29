@@ -37,8 +37,10 @@ public class SimpleCompressorOutputStream extends OutputStream {
             }
         }
 
-        //Iterates over every char from the content of the byte array (every cell of the maze)
-        for (int i = 12; i < b.length; i++){
+        out.write(b,0,12);
+        //Iterates over every byte of the maze content and compresses data in required format
+        for (int i = 0; i < b.length; i++){
+
             //Counts number of appearance of 0/1
             if (curr_val == b[i]) {
                 counter++;
@@ -47,6 +49,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
             //When 0/1 sequence flips, we write to outstream how many 0/1 we have
             else {
                 out.write(counter);
+                out.flush();
                 counter = 0;
                 curr_val = b[i];
             }
@@ -54,6 +57,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
             //Checks when 0/1 sequence is longer than 255
             if (counter == 255) {
                 out.write(counter);
+                out.flush();
                 counter = 0;
 
                 //If curr_val is 0, it will change to 1
@@ -62,6 +66,7 @@ public class SimpleCompressorOutputStream extends OutputStream {
                 curr_val = Math.abs(curr_val);
             }
         }
+
     }
 
 

@@ -3,6 +3,7 @@ package algorithms.mazeGenerators;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.management.GarbageCollectorMXBean;
 
 /**
  * Class that represents a 2D Maze.
@@ -33,6 +34,61 @@ public class Maze {
         this.goal_pos = null;
     }
 
+    /**
+     * Decompression Constructor - Builds a Maze out of a compressed byte array
+     * Meta data on the maze is held in 12 first indexes, the rest is the maze content
+     * @param b Byte array of compressed meta data and content of maze
+     */
+    public Maze(byte[] b){
+
+        //Checks that argument has all the necessary data
+        if (b.length < 16){
+            try{
+                throw new Exception("Cannot decompress maze - data is missing");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        //Retrieves the meta data in the desired format
+        int Start_row = ((b[0]&0xff)*256) + (b[1]&0xff);
+        int Start_col = ((b[2]&0xff)*256) + (b[3]&0xff);
+        int Goal_row = ((b[4]&0xff)*256) + (b[5]&0xff);
+        int Goal_col = ((b[6]&0xff)*256) + (b[7]&0xff);
+        int Size_row = ((b[8]&0xff)*256) + (b[9]&0xff);
+        int Size_col = ((b[10]&0xff)*256) + (b[11]&0xff);
+
+        //Creates new maze elements that we will assign later to the object itself
+        Position start = new Position(Start_row, Start_col);
+        Position goal = new Position(Goal_row, Goal_col);
+        int[][] mat = new int[Size_row][Size_col];
+
+        int row_counter = 0;
+        int col_counter = 0;
+
+
+        //Decompresses the maze content
+        for (int i = 12; i < b.length; i++) {
+            //Checks if we need to downline (go to next row)
+            if (col_counter == Size_col - 1) {
+                mat[row_counter][col_counter] = (int)b[i];
+                col_counter = 0;
+                row_counter++;
+                continue;
+            }
+
+            mat[row_counter][col_counter] = (int)b[i];
+            col_counter++;
+
+        }
+
+        this.start_pos = start;
+        this.goal_pos = goal;
+        this.maze_matrix = mat;
+
+    }
     /**
      * Getters
      * @return start or goal by order(Position)
@@ -142,7 +198,6 @@ public class Maze {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return out.toByteArray();
     }
