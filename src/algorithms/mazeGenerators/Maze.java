@@ -3,12 +3,13 @@ package algorithms.mazeGenerators;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.management.GarbageCollectorMXBean;
 
 /**
  * Class that represents a 2D Maze.
  */
-public class Maze {
+public class Maze{
     private int[][] maze_matrix;
     private Position start_pos;
     private Position goal_pos;
@@ -61,9 +62,9 @@ public class Maze {
         int Size_col = ((b[10]&0xff)*256) + (b[11]&0xff);
 
         //Creates new maze elements that we will assign later to the object itself
-        Position start = new Position(Start_row, Start_col);
-        Position goal = new Position(Goal_row, Goal_col);
-        int[][] mat = new int[Size_row][Size_col];
+        this.start_pos = new Position(Start_row, Start_col);
+        this.goal_pos = new Position(Goal_row, Goal_col);
+        this.maze_matrix = new int[Size_row][Size_col];
 
         int row_counter = 0;
         int col_counter = 0;
@@ -73,20 +74,24 @@ public class Maze {
         for (int i = 12; i < b.length; i++) {
             //Checks if we need to downline (go to next row)
             if (col_counter == Size_col - 1) {
-                mat[row_counter][col_counter] = (int)b[i];
+                //mat[row_counter][col_counter] = (int)b[i];
+                setMaze_matrix_by_index(row_counter,col_counter,(int)b[i]);
                 col_counter = 0;
                 row_counter++;
-                continue;
+                //continue;
+            }
+            else{
+                //mat[row_counter][col_counter] = (int)b[i];
+                setMaze_matrix_by_index(row_counter,col_counter,(int)b[i]);
+                col_counter++;
             }
 
-            mat[row_counter][col_counter] = (int)b[i];
-            col_counter++;
 
         }
 
-        this.start_pos = start;
-        this.goal_pos = goal;
-        this.maze_matrix = mat;
+/*        this.start_pos = start;
+        this.goal_pos = goal;*/
+        //this.maze_matrix = mat;
 
     }
     /**

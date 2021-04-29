@@ -4,6 +4,7 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Object adapter for maze problems. Adapts the maze problem so generic searching algorithms can be used to solve it
@@ -31,6 +32,7 @@ public class SearchableMaze implements ISearchable{
     public AState getGoalState() {
         return new MazeState(maze.getGoalPosition());
     }
+
 
     /**
      * Finds all the Possible moves from Astate s in a clockwise order (starts at 12:00)
@@ -157,6 +159,67 @@ public class SearchableMaze implements ISearchable{
         }
 
         return states_list;
+    }
+
+
+    @Override
+    public List<AState> getAllPossibleStates(AState state) {
+        if(!(state instanceof MazeState))
+            return null;
+        MazeState mazeState = (MazeState)state;
+        Position tempPos;
+        Position position = mazeState.getPos();
+        List<AState> possiblePositions = new ArrayList<>();
+        int row = maze.getMaze_matrix().length;
+        int col = maze.getMaze_matrix()[0].length;
+        int[][] m = maze.getMaze_matrix();
+        int pos_row = position.getRowIndex();
+        int pos_col = position.getColumnIndex();
+        //Check down
+        if (position.getRowIndex() < (row - 1) && pos_col >0 && m[pos_row + 1][pos_col] == 0) {
+            tempPos = new Position(pos_row + 1, pos_col);
+            possiblePositions.add(new MazeState(10+ mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check right
+        if (pos_col < col - 1 && m[pos_row][pos_col + 1] == 0) {
+            tempPos = new Position(pos_row, pos_col + 1);
+            possiblePositions.add(new MazeState(10+ mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check up
+        if (pos_row > 0 && pos_col>0 && m[pos_row - 1][pos_col] == 0) {
+            tempPos = new Position(pos_row - 1, pos_col);
+            possiblePositions.add(new MazeState(10+ mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check left
+        if (pos_col > 0 && m[pos_row][pos_col - 1] == 0) {
+            tempPos = new Position(pos_row, pos_col - 1);
+            possiblePositions.add(new MazeState(10+ mazeState.getCost(),mazeState,tempPos));
+        }
+
+        //Check diagonals
+
+        //Check down - left
+        if (pos_row < row - 1 && pos_row>0 && pos_col > 0 && m[pos_row + 1][pos_col - 1] == 0 && /*check if have a path -> */ m[pos_row][pos_col - 1] == 0 || pos_col>0 && m[pos_row + 1][pos_col] == 0) {
+            tempPos = new Position(pos_row + 1, pos_col - 1);
+            possiblePositions.add(new MazeState(15 + mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check down - right
+        if (pos_col < col - 1 && pos_row < row - 1 && m[pos_row + 1][pos_col + 1] == 0 && /*check if have a path -> */ (m[pos_row + 1][pos_col] == 0 || m[pos_row][pos_col + 1]== 0)) {
+            tempPos = new Position(pos_row + 1, pos_col + 1);
+            possiblePositions.add(new MazeState(15 + mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check up - left
+        if (pos_row > 0 && pos_col > 0 && m[pos_row - 1][pos_col - 1] == 0 && /*check if have a path -> */ (m[pos_row][pos_col - 1] == 0 || m[pos_row - 1][pos_col] == 0)) {
+            tempPos = new Position(pos_row - 1, pos_col - 1);
+            possiblePositions.add(new MazeState(15 + mazeState.getCost(),mazeState,tempPos));
+        }
+        //Check up - right
+        if (pos_row > 0 && pos_col < col - 1 && m[pos_row - 1][pos_col + 1] == 0 && /*check if have a path -> */ (m[pos_row][pos_col + 1] == 0 || m[pos_row - 1][pos_col] == 0)) {
+            tempPos = new Position(pos_row - 1, pos_col + 1);
+            possiblePositions.add(new MazeState(15 + mazeState.getCost(),mazeState,tempPos));
+        }
+
+        return possiblePositions;
     }
 }
 

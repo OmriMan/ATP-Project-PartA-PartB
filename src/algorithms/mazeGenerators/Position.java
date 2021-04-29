@@ -14,6 +14,7 @@ public class Position {
         ColumnIndex = columnIndex;
     }
 
+
     @Override
     public String toString() {
         return "{" + RowIndex + "," + ColumnIndex +"}";
