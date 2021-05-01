@@ -14,8 +14,8 @@ public class RunCompressDecompressMaze {
     public static void main(String[] args) throws Exception {
         String mazeFileName = "savedMaze.txt";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(1000, 1000); //Generate new maze
-        //maze.print();
+        Maze maze = mazeGenerator.generate(3, 3); //Generate new maze
+        maze.print();
         System.out.println("Maze Size = {"+maze.getMaze_matrix().length+","+maze.getMaze_matrix()[0].length+"}");
         System.out.println("start : "+maze.getStartPosition());
         System.out.println("end : "+maze.getGoalPosition());
@@ -46,7 +46,7 @@ public class RunCompressDecompressMaze {
         }
 
         Maze loadedMaze = new Maze(savedMazeBytes);
-        //loadedMaze.print();
+        loadedMaze.print();
 /*        System.out.println(loadedMaze.getMaze_matrix().length+","+loadedMaze.getMaze_matrix()[0].length);
         System.out.println("start :" + loadedMaze.getStartPosition());
         System.out.println("end :"+loadedMaze.getGoalPosition());*/
