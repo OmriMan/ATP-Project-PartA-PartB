@@ -1,9 +1,11 @@
 package algorithms.search;
 
+import java.io.Serializable;
+
 /**
  * Abstract class of States in solvable problems
  */
-public abstract  class AState {
+public abstract  class AState implements Serializable {
     private double cost;
     private AState cameFrom;
 

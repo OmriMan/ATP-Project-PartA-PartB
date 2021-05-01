@@ -1,15 +1,13 @@
 package algorithms.mazeGenerators;
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.management.GarbageCollectorMXBean;
+
 
 /**
  * Class that represents a 2D Maze.
  */
-public class Maze{
+public class Maze implements Serializable {
     private int[][] maze_matrix;
     private Position start_pos;
     private Position goal_pos;
@@ -72,26 +70,21 @@ public class Maze{
 
         //Decompresses the maze content
         for (int i = 12; i < b.length; i++) {
+
             //Checks if we need to downline (go to next row)
             if (col_counter == Size_col - 1) {
-                //mat[row_counter][col_counter] = (int)b[i];
                 setMaze_matrix_by_index(row_counter,col_counter,(int)b[i]);
                 col_counter = 0;
                 row_counter++;
-                //continue;
             }
+
             else{
-                //mat[row_counter][col_counter] = (int)b[i];
                 setMaze_matrix_by_index(row_counter,col_counter,(int)b[i]);
                 col_counter++;
             }
 
-
         }
 
-/*        this.start_pos = start;
-        this.goal_pos = goal;*/
-        //this.maze_matrix = mat;
 
     }
     /**

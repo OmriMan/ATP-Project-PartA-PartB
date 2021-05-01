@@ -1,5 +1,6 @@
 package algorithms.search;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Stack;
@@ -7,7 +8,7 @@ import java.util.Stack;
 /**
  * Class that represents a Solution of a problem from a solving algorithm.
  */
-public class Solution {
+public class Solution implements Serializable {
     private ArrayList<AState> states;
 
     /**
