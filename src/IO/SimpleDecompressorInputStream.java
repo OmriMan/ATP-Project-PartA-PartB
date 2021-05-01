@@ -18,6 +18,12 @@ public class SimpleDecompressorInputStream extends InputStream {
         //Not implemented
     }
 
+    /**
+     * Function that decompresses the byte array
+     * @param b byte array to decompress
+     * @return a decompressed byte array
+     * @throws IOException
+     */
     @Override
     public int read(byte[] b) throws IOException {
         int curr_value = 0;
@@ -34,60 +40,38 @@ public class SimpleDecompressorInputStream extends InputStream {
             }
         }
 
-/*
-        //Extracts meta data to InputStream
-        //in.read(b, offset, 12);
-        for(int i=0;i<12;i++)
-        {
-            b[i] = (byte)in.read();
-        }
-        offset +=12;
-*/
-
         int curr_byte = in.read();
-        byte[] temp;
-        int ind=0;
-        //Decompresses maze into byte array of the InputStream
+
+        //Decompresses maze into byte array from the InputStream
         while(curr_byte != -1) {
-            if(ind<12)
+
+            //Extracts meta data
+            if(offset<12)
             {
-                b[ind]=(byte)curr_byte;
-                ind++;
+                b[offset]=(byte)curr_byte;
+                offset++;
             }
+
+            //Extracts content of maze
             else
             {
-                //temp = new byte[curr_byte]; // = 3
                 for(int i=0;i<(curr_byte);i++)
                 {
-                    b[ind+i]=(byte)curr_value;
-                }
-                //Arrays.fill(temp, (byte) curr_value);//Fills temp byte array with the matching 0's/1's
-                //System.arraycopy(temp, 0, b, offset, curr_byte); //Copies temp array to b
-/*                for(int i=0;i<curr_byte;i++)
-                {
-*//*                    if(ind+i>=b.length)
-                        break;*//*
-                    b[ind+i]=temp[i];
-                }*/
 
-                ind += curr_byte;
+                    b[offset+i]=(byte)curr_value;
+                }
+
+                offset += curr_byte;
                 //If curr_val is 0, it will change to 1
                 //If curr_val is 1, it will change to 0
                 curr_value--;
                 curr_value = Math.abs(curr_value);
-
             }
-
             curr_byte = in.read();
-
 
         }
 
         return 0;
     }
-
-
-
-
 
 }
