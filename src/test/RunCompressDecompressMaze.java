@@ -54,6 +54,7 @@ public class RunCompressDecompressMaze {
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));
 
         //maze should be equal to loadedMaze
+
         if(!areMazesEquals){
             for(int i=0;i<maze.getMaze_matrix().length;i++)
             {
