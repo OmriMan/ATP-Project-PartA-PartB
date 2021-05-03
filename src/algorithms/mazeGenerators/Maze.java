@@ -1,4 +1,6 @@
 package algorithms.mazeGenerators;
+import IO.Convertion;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -183,7 +185,7 @@ public class Maze implements Serializable {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         for (int i = 0; i < maze_data.length; i++){
             try{
-                out.write(ConvertIntToByteFormat(maze_data[i]));
+                out.write(Convertion.ConvertIntToByteFormat(maze_data[i]));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -201,20 +203,7 @@ public class Maze implements Serializable {
     }
 
 
-    /**
-     * Function that receives an integer and returns a 2 byte array in the following format: (Array[0]*256)+Array[1] = number
-     * Array[0] - Number is divided in parts of 256, index 0 means number is in 0-255, index 1 means number is in 256-511 and so on...
-     * Array[1] - Offset from the given part
-     * @param number Given number to convert
-     * @return 2 byte array containing the appropriate format
-     */
-    private byte[] ConvertIntToByteFormat(int number){
-        byte[] result = new byte[2];
-        result[0] = (byte) ((int)number/256);
-        result[1] = (byte) (number-(256*result[0]));
 
-        return result;
-    }
 
 
     /**

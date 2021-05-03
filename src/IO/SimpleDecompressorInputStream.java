@@ -7,6 +7,10 @@ import java.util.Arrays;
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
 
+    /**
+     * Constructor
+     * @param in Inputstream
+     */
     public SimpleDecompressorInputStream(InputStream in) {
         this.in = in;
     }
@@ -19,9 +23,9 @@ public class SimpleDecompressorInputStream extends InputStream {
     }
 
     /**
-     * Function that decompresses the byte array
-     * @param b byte array to decompress
-     * @return a decompressed byte array
+     * Function that decompresses the InputStream and saves it into b
+     * @param b byte array to fill with decompressed maze
+     * @return saves the decompressed maze into b
      * @throws IOException
      */
     @Override
