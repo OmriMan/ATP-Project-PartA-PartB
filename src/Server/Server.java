@@ -27,17 +27,9 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
 
-        //Reads the configuration file
-        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator + "resources" + File.separator + "config.properties")) {
-
-            Properties prop = new Properties();
-            prop.load(input);
-
-            //Extracts from the config file the thread pool size
-            this.threadPool = Executors.newFixedThreadPool(Integer.parseInt(prop.getProperty("threadPoolSize")));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //Extracts from the config file the thread pool size
+        Configurations config = Configurations.getInstance();
+        this.threadPool = Executors.newFixedThreadPool(config.getThreadPoolSize());
 
     }
         /**

@@ -1,5 +1,6 @@
 package Server;
 
+import IO.Convertion;
 import IO.SimpleCompressorOutputStream;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
@@ -31,7 +32,13 @@ public class ServerStrategyGenerateMaze implements IServerStrategy{
         }
 
         //Generates a new maze
-        IMazeGenerator mazeGenerator = new MyMazeGenerator();
+        Configurations config = Configurations.getInstance();
+        IMazeGenerator mazeGenerator = null;
+        try {
+            mazeGenerator = config.getmazeGeneratingAlgorithm();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         Maze maze;
         try {
             maze = mazeGenerator.generate(arr[0], arr[1]);

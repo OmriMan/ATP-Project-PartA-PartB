@@ -40,6 +40,9 @@ public class Configurations {
 
         //Reads the configuration file
         try {
+            File f = new File(System.getProperty("user.dir") + File.separator + "resources" + File.separator + "config.properties");
+            f.createNewFile();
+
             this.input = new FileInputStream(System.getProperty("user.dir") + File.separator + "resources" + File.separator + "config.properties");
             this.property = new Properties();
             this.property.load(this.input);

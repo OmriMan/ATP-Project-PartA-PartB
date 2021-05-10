@@ -27,11 +27,12 @@ public class Client{
     public void communicateWithServer(){
         try{
             Socket serverSocket = new Socket(this.serverIP, this.serverPort);
-            System.out.println("Connected to server - IP = " + this.serverIP + ", Port = " + this.serverPort);
+//            System.out.println("Connected to server - IP = " + this.serverIP + ", Port = " + this.serverPort);
             this.strategy.clientStrategy(serverSocket.getInputStream(), serverSocket.getOutputStream());
             serverSocket.close();
         }catch (Exception e){
-            System.out.println("did not connect to server");
+            e.printStackTrace();
+//            System.out.println("did not connect to server");
         }
     }
 }
