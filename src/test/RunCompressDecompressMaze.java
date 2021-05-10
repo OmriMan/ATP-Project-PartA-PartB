@@ -22,7 +22,7 @@ public class RunCompressDecompressMaze {
         System.out.println("-----------");
         try {
             // save maze to a file
-            OutputStream out = new SimpleCompressorOutputStream(new FileOutputStream(mazeFileName));
+            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
             out.write(maze.toByteArray());
             out.flush();
             out.close();
@@ -35,8 +35,7 @@ public class RunCompressDecompressMaze {
 
         try {
             //read maze from file
-            InputStream in = new SimpleDecompressorInputStream(new FileInputStream(mazeFileName));
-            int blrblr = maze.toByteArray().length;
+            InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFileName));
             savedMazeBytes = new byte[maze.toByteArray().length];
             in.read(savedMazeBytes);
             in.close();
@@ -46,61 +45,8 @@ public class RunCompressDecompressMaze {
         }
 
         Maze loadedMaze = new Maze(savedMazeBytes);
-        loadedMaze.print();
-/*        System.out.println(loadedMaze.getMaze_matrix().length+","+loadedMaze.getMaze_matrix()[0].length);
-        System.out.println("start :" + loadedMaze.getStartPosition());
-        System.out.println("end :"+loadedMaze.getGoalPosition());*/
         boolean areMazesEquals = Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));
 
-        //maze should be equal to loadedMaze
-
-        if(!areMazesEquals){
-            for(int i=0;i<maze.getMaze_matrix().length;i++)
-            {
-                for(int j=0;j<maze.getMaze_matrix()[0].length;j++)
-                {
-                    if(maze.getMaze_matrix()[i][j] != loadedMaze.getMaze_matrix()[i][j]){
-                        System.out.println("Error at :"+i+","+j);
-                        System.out.println(maze.getMaze_matrix()[i][j] - loadedMaze.getMaze_matrix()[i][j]);
-                    }
-                }
-            }
-        }
-        else{
-            // set output size
-            final int N = 6;
-
-            for (int i = 0; i < N; i++)
-            {
-                for (int j = 0; j <= 4 * N; j++)
-                {
-                    double d1 = Math.sqrt(Math.pow(i - N, 2) + Math.pow(j - N, 2));
-                    double d2 = Math.sqrt(Math.pow(i - N, 2) + Math.pow(j - 3 * N, 2));
-
-                    if (d1 < N + 0.5 || d2 < N + 0.5) {
-                        System.out.print('*');
-                    }
-                    else {
-                        System.out.print(' ');
-                    }
-                }
-                System.out.print(System.lineSeparator());
-            }
-
-            for (int i = 1; i < 2 * N; i++)
-            {
-                for (int j = 0; j < i; j++) {
-                    System.out.print(' ');
-                }
-
-                for (int j = 0; j < 4 * N + 1 - 2 * i; j++) {
-                    System.out.print('*');
-                }
-
-                System.out.print(System.lineSeparator());
-            }
-
-        }
     }
 }

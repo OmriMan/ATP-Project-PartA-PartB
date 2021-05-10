@@ -173,13 +173,8 @@ public class Maze implements Serializable {
      */
     public byte[] toByteArray(){
         //Organizes data
-        int[] maze_data = new int[6];
-        maze_data[0] = this.getStartPosition().getRowIndex();
-        maze_data[1] = this.getStartPosition().getColumnIndex();
-        maze_data[2] = this.getGoalPosition().getRowIndex();
-        maze_data[3] = this.getGoalPosition().getColumnIndex();
-        maze_data[4] = this.getMaze_matrix().length;
-        maze_data[5] = this.getMaze_matrix()[0].length;
+
+        int[] maze_data = Convertion.MazeToMetaDataArray(this);
 
         //Adds the data of Start Position, Goal Position and size of matrix in desired format
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -194,7 +189,7 @@ public class Maze implements Serializable {
 
         //Converts and adds the 2D matrix of the maze to the byte array
         try {
-            out.write(ConvertIntMatrixToByte());
+            out.write(Convertion.ConvertBinaryIntMatrixToByte(this));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -206,32 +201,6 @@ public class Maze implements Serializable {
 
 
 
-    /**
-     * Function that converts a 2D matrix of binary int into a 1D array of Bytes
-     * @return byte array
-     */
-    private byte[] ConvertIntMatrixToByte(){
-        int Row_size = this.getMaze_matrix().length;
-        int Col_size = this.getMaze_matrix()[0].length;
-        int[][] matrix = this.getMaze_matrix();
-        byte one = 1;
-        byte zero = 0;
-
-        //Iterates over every element in matrix and adds them to the Outstream
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        for (int i = 0; i < Row_size; i++) {
-            for (int j = 0; j < Col_size; j++) {
-                if (matrix[i][j] == 0){
-                    out.write(zero);
-                }
-
-                else{
-                    out.write(one);
-                }
-            }
-        }
-        return out.toByteArray();
-    }
 
 }
 

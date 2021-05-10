@@ -1,10 +1,10 @@
 package Server;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.concurrent.Executor;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,15 +22,25 @@ public class Server {
      * @param listeningIntervalMS Intervals between connection attempts
      * @param strategy Strategy of the server
      */
-    public Server(int port,int listeningIntervalMS, IServerStrategy strategy){
+    public Server(int port,int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        this.threadPool = Executors.newCachedThreadPool();
+
+        //Reads the configuration file
+        try (InputStream input = new FileInputStream(System.getProperty("user.dir") + File.separator + "resources" + File.separator + "config.properties")) {
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            //Extracts from the config file the thread pool size
+            this.threadPool = Executors.newFixedThreadPool(Integer.parseInt(prop.getProperty("threadPoolSize")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
-
-
-    /**
+        /**
      * Function that creates a new thread for the server and call run function
      */
     public void start(){
@@ -46,26 +56,27 @@ public class Server {
         try{
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-            System.out.println("Starting server at port = " + this.port);
+//            System.out.println("Starting server at port = " + this.port);
 
             //Iterates until boolean variable stop changes to true
             //At each iteration checks for a new client connection
             while(!stop){
                 try{
                     Socket clientSocket = serverSocket.accept();
-                    System.out.println("Client accepted: " + clientSocket.toString());
+//                    System.out.println("Client accepted: " + clientSocket.toString());
 
                     //If a client connects, he gets a new thread from the thread pool to handle him
                     this.threadPool.submit(()->{handleClient(clientSocket);});
 
                 }catch (SocketTimeoutException e){
-                    System.out.println("Socket timeout");
+//                    System.out.println("Socket timeout");
                 }
 
             }
             //Closes the socket and thread pool NOW - disconnects clients that are still connected
             serverSocket.close();
-            this.threadPool.shutdownNow();
+
+            this.threadPool.shutdown();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,8 +88,8 @@ public class Server {
      */
     private void handleClient(Socket clientSocket){
         try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
-            System.out.println("Done handling client: " + clientSocket.toString());
+            strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+//            System.out.println("Done handling client: " + clientSocket.toString());
             clientSocket.close();
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -89,7 +100,7 @@ public class Server {
      * Function that stops the server (by changing the stop variable to true) and disconnects all clients
      */
     public void stop(){
-        System.out.println("Stopping server...");
+//        System.out.println("Stopping server...");
         stop = true;
     }
 }

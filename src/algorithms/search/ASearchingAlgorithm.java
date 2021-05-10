@@ -1,9 +1,9 @@
 package algorithms.search;
-
+import java.lang.Cloneable;
 /**
  * Abstract class of all Searching Algorithms
  */
-public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
+public abstract class ASearchingAlgorithm implements ISearchingAlgorithm, Cloneable{
     private int visitedNodes;
 
     /**
@@ -20,5 +20,10 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
 
     public void setVisitedNodes(int visitedNodes) {
         this.visitedNodes = visitedNodes;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

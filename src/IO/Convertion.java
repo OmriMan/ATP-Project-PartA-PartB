@@ -1,10 +1,12 @@
 package IO;
+import Server.Configurations;
+import algorithms.mazeGenerators.Maze;
 
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
-public class Convertion {
 
+public class Convertion {
 
     /**
      * Static method that receives an integer and returns a 2 byte array in the following format: (Array[0]*256)+Array[1] = number
@@ -57,5 +59,54 @@ public class Convertion {
         return result;
 
     }
+
+
+    /**
+     * Function that converts a 2D matrix of binary int into a 1D array of Bytes
+     * @return byte array
+     */
+    public static byte[] ConvertBinaryIntMatrixToByte(Maze maze){
+        int Row_size = maze.getMaze_matrix().length;
+        int Col_size = maze.getMaze_matrix()[0].length;
+        int[][] matrix = maze.getMaze_matrix();
+        byte one = 1;
+        byte zero = 0;
+
+        //Iterates over every element in matrix and adds them to the Outstream
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        for (int i = 0; i < Row_size; i++) {
+            for (int j = 0; j < Col_size; j++) {
+                if (matrix[i][j] == 0){
+                    out.write(zero);
+                }
+
+                else{
+                    out.write(one);
+                }
+            }
+        }
+        return out.toByteArray();
+    }
+
+    /**
+     * Function that receives a maze and returns an array of it's meta data
+     * @param maze Given maze
+     * @return Array of given's maze meta data
+     */
+    public static int[] MazeToMetaDataArray(Maze maze){
+
+        int[] maze_data = new int[6];
+        maze_data[0] = maze.getStartPosition().getRowIndex();
+        maze_data[1] = maze.getStartPosition().getColumnIndex();
+        maze_data[2] = maze.getGoalPosition().getRowIndex();
+        maze_data[3] = maze.getGoalPosition().getColumnIndex();
+        maze_data[4] = maze.getMaze_matrix().length;
+        maze_data[5] = maze.getMaze_matrix()[0].length;
+
+        return maze_data;
+    }
+
+
+
 
 }

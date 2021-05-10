@@ -1,10 +1,11 @@
 package algorithms.mazeGenerators;
 import java.util.Random;
+import java.lang.Cloneable;
 
 /**
  * Abstract class of all Maze Generator algorithms
  */
-public abstract class AMazeGenerator implements IMazeGenerator {
+public abstract class AMazeGenerator implements IMazeGenerator, Cloneable{
 
     /**
      * Measures 'generate' algorithm time in millisecond.
@@ -98,6 +99,10 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         return Pos_to_return;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
 
 

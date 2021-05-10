@@ -1,8 +1,7 @@
 package IO;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+
 
 public class SimpleDecompressorInputStream extends InputStream {
     InputStream in;
