@@ -38,3 +38,4 @@ For example a chunk like this: 0,0,0,1,0,1,1,1,0,0,1,1,0,1,1,1 is converted to 5
 
 # Servers & Threads
 We used a generic server that uses the strategy design pattern to either generate or solve maze. This enable multiple threads to use the application independently as different clients when communicating with the server.
+The server receives the strategy it wants to use (generating or solving), then clients connect to it, sends information (maze size or maze to solve), and the server returns the result (a unique random maze or a solution to the maze).
