@@ -37,3 +37,4 @@ For example a maze whose values are (flatten out): 1,1,1,0,0,1,0,0,0,0,0,0,1,1 w
 For example a chunk like this: 0,0,0,1,0,1,1,1,0,0,1,1,0,1,1,1 is converted to 5943 in decimal, then to [23,55] (23 is 5943/256, 55 is 5943-(23*256))
 
 # Servers & Threads
+We used a generic server that uses the strategy design pattern to either generate or solve maze. This enable multiple threads to use the application independently as different clients when communicating with the server.
