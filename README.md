@@ -26,11 +26,14 @@ Maze solving is much like graph traversing. We implemented 3 different ways of f
 * Best First Search - Variation of BFS  algorithm that chooses the next cell to go to by calculating the cheapest path (a diagonal step costs more than a regular step)
 
 # Compress & Decompress
-To be able to stream the data we needed to compress and decompress it. First and foremost, the two-dimensional array is flatten out to a single-dimensional array of bytes (much cheaper in memory). All the basic information about the maze like its size and start/goal cell is converted and compressed to 12 bytes.
+To be able to stream the data, we needed to compress and decompress it. First and foremost, the two-dimensional array is flatten out to a single-dimensional array of bytes (much cheaper in memory). All the basic information about the maze - maze size and start/goal cell are converted and compressed to 12 bytes using a predefined format.
 
-We implemented 2 different methods for compressing and decompressing:
+We implemented 2 different methods for compressing and decompressing using the decorator design pattern:
 
 * Simple Compressor - Saves the number of consecutive appeareances of each value (0 or 1) starting from 0. 
 For example a maze whose values are (flatten out): 1,1,1,0,0,1,0,0,0,0,0,0,1,1 will be compressed to - 0,3,2,1,6,2
+
+* My Compressor - Converts chunks of 16 bytes into a decimal number, then represents that number in a 2 byte format.
+For example a chunk like this: 0,0,0,1,0,1,1,1,0,0,1,1,0,1,1,1 is converted to 5943 in decimal, then to [23,55] (23 is 5943/256, 55 is 5943-(23*256))
 
 # Servers & Threads
