@@ -5,8 +5,8 @@ Business logic of the Maze game for ATP course in SISE department of BGU Univers
 # Table of Content
 * [General Information](#General-Information)
 * [Technologies](#Technologies)
-* [How do you build a maze???](#How-do-you-build-a-maze???)
-* [How do you solve a maze???](#How-do-you-solve-a-maze???)
+* [How do you build a maze?](#How-do-you-build-a-maze?)
+* [How do you solve a maze?](#How-do-you-solve-a-maze?)
 * [Compress & Decompress](#Compress-&-Decompress)
 * [Servers and Threads](#Servers-&-Threads)
 
@@ -16,10 +16,10 @@ First and second part of the project is to train my skills in creating a fully w
 # Technologies
 Java JDK-15.
 
-# How do you build a maze???
+# How do you build a maze?
 The maze is represented as a two-dimensional array of binary int - 1 symbolizes a wall while 0 symbolizes a passage. We chose Prim's algorithm to generate interesting mazes with a lot of dead ends. The two-dimensional array is initialized with every cell being a wall, then after choosing a random starting cell from the frame of the grid, the algorithm chooses a close by cell and "clears" itself a passage to it. This step is repeated until there are no possible cell to choose from. If every cell is a node in a graph, then the algorithm will find a minimum spanning tree in it. After the maze is created, a random cell on the other side of the frame of the grid is chosen as the goal cell.
 
-# How do you solve a maze???
+# How do you solve a maze?
 Maze solving is much like graph traversing. We implemented 3 different ways of finding the route from start to goal:
 * DFS - Depth First Search
 * BFS - Breadth First Search
