@@ -9,6 +9,7 @@ Business logic of the Maze game for ATP course in SISE department of BGU Univers
 * [How do you solve a maze?](#How-do-you-solve-a-maze?)
 * [Compress & Decompress](#Compress-&-Decompress)
 * [Servers and Threads](#Servers-&-Threads)
+* [Project diagram](#Project-diagram)
 
 # General Information
 First and second part of the project is to train my skills in creating a fully working custom maze generator and solver, and a multi threaded Client-server architecture that can generate and solve mazes.
@@ -39,3 +40,6 @@ For example a chunk like this: 0,0,0,1,0,1,1,1,0,0,1,1,0,1,1,1 is converted to 5
 # Servers & Threads
 We used a generic server that uses the strategy design pattern to either generate or solve maze. This enable multiple threads to use the application independently as different clients when communicating with the server.
 The server receives the strategy it wants to use (generating or solving), then clients connect to it, sends information (maze size or maze to solve), and the server returns the result (a unique random maze or a solution to the maze).
+
+# Project diagram
+<img width="3018" alt="UML_A_B_with_frames" src="https://user-images.githubusercontent.com/81520237/139581905-175280d5-e52b-4661-9ae0-b72d1e20b64e.png">
